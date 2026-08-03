@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>SB Mobile Detailing — Monthly Marketing Report</title>
+<style>
+
+  :root{
+    --bg:#eef3f6; --surface:#ffffff; --surface-2:#f5f8fa;
+    --ink:#14232e; --ink-2:#33454f; --muted:#5f7079; --hair:#e0e8ed;
+    --accent:#0f6f8c; --accent-2:#2e9fc4; --accent-wash:#e4f1f6;
+    --good:#2c8659; --good-wash:#e3f1e9; --warn:#b47a24;
+    --shadow:0 1px 2px rgba(20,35,46,.06), 0 8px 24px rgba(20,35,46,.05);
+    --maxw:920px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0c141c; --surface:#152230; --surface-2:#101b26;
+      --ink:#e9eff3; --ink-2:#c2cfd8; --muted:#8ea0ac; --hair:#243541;
+      --accent:#3aa7cb; --accent-2:#5cc0dd; --accent-wash:#132b36;
+      --good:#4bb17e; --good-wash:#142a20; --warn:#d0a251;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#eef3f6; --surface:#ffffff; --surface-2:#f5f8fa;
+    --ink:#14232e; --ink-2:#33454f; --muted:#5f7079; --hair:#e0e8ed;
+    --accent:#0f6f8c; --accent-2:#2e9fc4; --accent-wash:#e4f1f6;
+    --good:#2c8659; --good-wash:#e3f1e9; --warn:#b47a24;
+    --shadow:0 1px 2px rgba(20,35,46,.06), 0 8px 24px rgba(20,35,46,.05);
+  }
+  :root[data-theme="dark"]{
+    --bg:#0c141c; --surface:#152230; --surface-2:#101b26;
+    --ink:#e9eff3; --ink-2:#c2cfd8; --muted:#8ea0ac; --hair:#243541;
+    --accent:#3aa7cb; --accent-2:#5cc0dd; --accent-wash:#132b36;
+    --good:#4bb17e; --good-wash:#142a20; --warn:#d0a251;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:clamp(20px,4vw,52px) clamp(16px,4vw,32px) 72px}
+  .num{font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1}
+
+  /* ---- header ---- */
+  header{margin-bottom:34px}
+  .eyebrow{font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:650}
+  h1{font-size:clamp(28px,5vw,40px); line-height:1.08; margin:.32em 0 .18em; font-weight:680; letter-spacing:-.02em; text-wrap:balance}
+  .sub{color:var(--muted); font-size:15px; margin:0}
+  .status{
+    display:inline-flex; align-items:center; gap:8px; margin-top:18px;
+    background:var(--good-wash); color:var(--good); border:1px solid color-mix(in srgb,var(--good) 26%,transparent);
+    padding:7px 13px; border-radius:999px; font-size:13px; font-weight:600;
+  }
+  .status .dot{width:8px; height:8px; border-radius:50%; background:var(--good); box-shadow:0 0 0 3px color-mix(in srgb,var(--good) 22%,transparent)}
+
+  /* ---- section scaffold ---- */
+  section{margin-top:40px}
+  .sec-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:16px}
+  .sec-head h2{font-size:20px; margin:0; font-weight:660; letter-spacing:-.01em}
+  .sec-head .win{font-size:12.5px; color:var(--muted); letter-spacing:.02em}
+  .card{background:var(--surface); border:1px solid var(--hair); border-radius:16px; box-shadow:var(--shadow)}
+  .pad{padding:clamp(18px,3vw,26px)}
+
+  /* ---- highlights band ---- */
+  .ships{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  @media (max-width:680px){.ships{grid-template-columns:1fr}}
+  .ship{background:var(--surface); border:1px solid var(--hair); border-radius:14px; padding:18px 18px 20px; box-shadow:var(--shadow); position:relative}
+  .ship .tag{font-size:11px; letter-spacing:.12em; text-transform:uppercase; font-weight:650; color:var(--accent)}
+  .ship h3{font-size:16px; margin:9px 0 6px; font-weight:640; letter-spacing:-.01em}
+  .ship p{margin:0; font-size:13.5px; color:var(--muted); line-height:1.5}
+  .ship .chk{position:absolute; top:16px; right:16px; width:20px; height:20px; border-radius:50%; background:var(--good-wash); color:var(--good); display:grid; place-items:center; font-size:12px; font-weight:800}
+
+  /* ---- KPI tiles ---- */
+  .tiles{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--hair); border-radius:16px; overflow:hidden; border:1px solid var(--hair)}
+  @media (max-width:680px){.tiles{grid-template-columns:repeat(2,1fr)}}
+  .tile{background:var(--surface); padding:18px 18px 16px}
+  .tile .k{font-size:12px; color:var(--muted); letter-spacing:.02em; margin-bottom:7px}
+  .tile .v{font-size:26px; font-weight:680; letter-spacing:-.02em; line-height:1}
+  .tile .d{font-size:12.5px; margin-top:7px; font-weight:600; display:inline-flex; align-items:center; gap:4px}
+  .up{color:var(--good)} .flat{color:var(--muted)} .soft{color:var(--warn)}
+
+  .read{font-size:14.5px; color:var(--ink-2); margin:16px 2px 0; line-height:1.6}
+  .read b{color:var(--ink); font-weight:640}
+
+  /* ---- hero revenue ---- */
+  .rev-top{display:flex; align-items:flex-end; gap:26px; flex-wrap:wrap; margin-bottom:20px}
+  .rev-big{font-size:clamp(38px,7vw,54px); font-weight:700; letter-spacing:-.03em; line-height:.95}
+  .rev-cap{font-size:13px; color:var(--muted); margin-top:6px}
+  .pill{display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:999px; font-size:13px; font-weight:650; background:var(--good-wash); color:var(--good)}
+
+  /* chart */
+  figure{margin:0}
+  .chart-wrap{overflow-x:auto}
+  svg{display:block; width:100%; height:auto}
+  .bar{fill:var(--accent-2)}
+  .bar.today{fill:var(--accent); opacity:.4}
+  .axline{stroke:var(--hair)}
+  .axtxt{fill:var(--muted); font-size:10px; font-variant-numeric:tabular-nums}
+  .tip{position:fixed; pointer-events:none; opacity:0; transition:opacity .1s; background:var(--ink); color:var(--bg); padding:6px 9px; border-radius:8px; font-size:12px; font-weight:600; white-space:nowrap; z-index:9; box-shadow:var(--shadow)}
+  .tip .t2{color:color-mix(in srgb,var(--bg) 62%,transparent); font-weight:500}
+
+  /* ---- tables ---- */
+  .tablewrap{overflow-x:auto; margin-top:16px}
+  table{width:100%; border-collapse:collapse; font-size:13.5px; min-width:440px}
+  th,td{text-align:right; padding:9px 12px; border-bottom:1px solid var(--hair); font-variant-numeric:tabular-nums}
+  th:first-child,td:first-child{text-align:left; font-variant-numeric:normal}
+  thead th{font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); font-weight:650; border-bottom:1px solid var(--hair)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.total td{font-weight:680; color:var(--ink); border-top:2px solid var(--hair)}
+  .chip{display:inline-block; font-size:11px; font-weight:650; padding:2px 8px; border-radius:6px; letter-spacing:.02em}
+  .chip.on{background:var(--good-wash); color:var(--good)}
+  .chip.off{background:var(--surface-2); color:var(--muted); border:1px solid var(--hair)}
+
+  .note{font-size:13px; color:var(--muted); margin-top:14px; padding:12px 14px; background:var(--surface-2); border-radius:10px; border:1px solid var(--hair); line-height:1.5}
+  .note b{color:var(--ink-2)}
+
+  /* ---- klaviyo detail blocks ---- */
+  .subh{font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); font-weight:650; margin:0 0 8px; display:flex; align-items:center; gap:7px}
+  .kgrid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media (max-width:680px){.kgrid{grid-template-columns:1fr}}
+  .kblock{background:var(--surface-2); border:1px solid var(--hair); border-radius:12px; padding:16px 17px}
+  .kblock p{margin:0; font-size:13.5px; color:var(--ink-2); line-height:1.56}
+  .kblock p b{color:var(--ink); font-weight:640}
+  .kblock.warn{background:color-mix(in srgb,var(--warn) 9%,var(--surface)); border-color:color-mix(in srgb,var(--warn) 30%,transparent)}
+  .kblock.warn .subh{color:var(--warn)}
+  .kblock .flag{width:16px; height:16px; border-radius:4px; background:color-mix(in srgb,var(--warn) 20%,transparent); color:var(--warn); display:grid; place-items:center; font-size:11px; font-weight:800}
+  .draftpill{display:inline-block; margin-top:9px; font-size:11.5px; font-weight:650; color:var(--good); background:var(--good-wash); border:1px solid color-mix(in srgb,var(--good) 26%,transparent); padding:3px 9px; border-radius:6px}
+
+  /* ---- footer ---- */
+  footer{margin-top:52px; padding-top:22px; border-top:1px solid var(--hair); color:var(--muted); font-size:12.5px; line-height:1.7}
+  footer .srcs{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 16px}
+  footer .src{background:var(--surface); border:1px solid var(--hair); border-radius:8px; padding:5px 11px; font-weight:600; color:var(--ink-2); font-size:12px}
+  a{color:var(--accent)}
+
+  /* ---- work list (completed items, grouped) ---- */
+  .wgroup{margin-top:18px}
+  .wgroup:first-child{margin-top:0}
+  .wgroup .subh{margin-bottom:10px}
+  .wlist{list-style:none; margin:0; padding:0}
+  .wlist li{display:flex; gap:10px; align-items:flex-start; padding:7px 0; border-bottom:1px solid var(--hair); font-size:14px; color:var(--ink-2); line-height:1.5}
+  .wlist li:last-child{border-bottom:none}
+  .wlist .tick{flex:0 0 auto; width:17px; height:17px; margin-top:2px; border-radius:50%; background:var(--good-wash); color:var(--good); display:grid; place-items:center; font-size:10px; font-weight:800}
+  .wlist .who{color:var(--muted); font-size:12.5px; white-space:nowrap}
+
+  /* ---- awaiting client ---- */
+  .await{background:color-mix(in srgb,var(--warn) 9%,var(--surface)); border:1px solid color-mix(in srgb,var(--warn) 30%,transparent); border-radius:12px; padding:16px 17px; margin-top:16px}
+  .await .subh{color:var(--warn)}
+  .await ul{list-style:none; margin:0; padding:0}
+  .await li{padding:6px 0; font-size:14px; color:var(--ink-2); line-height:1.5; border-bottom:1px solid color-mix(in srgb,var(--warn) 18%,transparent)}
+  .await li:last-child{border-bottom:none}
+
+  /* ---- exec summary ---- */
+  .lede{font-size:16.5px; line-height:1.6; color:var(--ink-2); margin:0 0 4px; max-width:66ch}
+  .lede b{color:var(--ink); font-weight:640}
+
+  /* tile deltas can also be negative */
+  .down{color:var(--warn)}
+
+  @media print{
+    body{background:#fff}
+    section{break-inside:avoid}
+    .card,.tile,.ship{box-shadow:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Monthly Marketing Report</div>
+    <h1>SB Mobile Detailing</h1>
+    <p class="sub">Prepared by Outrider Digital · July 2026</p>
+    
+  </header>
+
+<section style="margin-top:28px"><p class="lede">Delivery was heavy and visits were quieter. Your new website reached a polished, client-approved build, Google Ads went live across your service area, and automated email and text marketing launched. Traffic and search visibility eased back from June, but more visits turned into bookings — and the new site plus fresh SEO copy targets the search slide.</p></section>
+<section><div class="sec-head"><h2>Shipped this period</h2></div><div class="ships"><div class="ship"><div class="chk">✓</div><div class="tag">Website</div><h3>New website built, refined, and launch-ready</h3><p>We built the first working version of your new site, walked your team through it, and worked through every revision you sent back. Service pages were rebuilt with your pricing, videos, and photos, the homepage and About pages were reworked, and a full quality check covered every link and image.</p></div><div class="ship"><div class="chk">✓</div><div class="tag">Google Ads</div><h3>Google Ads switched on across your service area</h3><p>Your campaigns went live, targeting expanded to cover Rancho Bernardo, and we fixed the tracking issue so every conversion from ads is now recorded correctly.</p></div><div class="ship"><div class="chk">✓</div><div class="tag">Email &amp; SMS</div><h3>Automated email and text marketing launched</h3><p>We connected your email and SMS platform, built the follow-up program that brings past customers back, and ran launch day live, testing promo codes, scheduling the first sends, and watching the first automated messages go out.</p></div></div><div class="card pad" style="margin-top:16px"><div class="wgroup"><div class="subh">Site fixes &amp; maintenance</div><ul class="wlist"><li><span class="tick">✓</span><span>Cleaned up duplicate page addresses and redirects so Google indexes the right version of each page.</span><span class="who">Rehan Saleem</span></li><li><span class="tick">✓</span><span>Updated the About Us page to reflect your latest review count.</span><span class="who">Rehan Saleem</span></li><li><span class="tick">✓</span><span>Corrected page titles that were appearing in Spanish in Google search results.</span><span class="who">Daniel</span></li><li><span class="tick">✓</span><span>Removed the &quot;hidden city&quot; phrasing from the Escondido service page.</span><span class="who">Rehan Saleem</span></li></ul></div><div class="wgroup"><div class="subh">Website Redesign</div><ul class="wlist"><li><span class="tick">✓</span><span>Loaded SEO-optimized copy onto every service page of the new site.</span></li><li><span class="tick">✓</span><span>Rebuilt the service pages to match your live site&#x27;s pricing, videos, and photos.</span></li><li><span class="tick">✓</span><span>Brought the whole site up to standard: accurate star ratings and review counts, legal pages, cookie banner, and trust badges.</span></li><li><span class="tick">✓</span><span>Revised the homepage per your team&#x27;s feedback: added the family photo, step-by-step images, and a mobile-friendly carousel.</span></li><li><span class="tick">✓</span><span>Updated the About and Our Work pages with your family photo, cleaner section breaks, and a click-through photo gallery of your work.</span></li><li><span class="tick">✓</span><span>Ran a full quality pass on the new site: checked every link and image, fixed the footer social links, and kept the preview site hidden from Google until launch.</span></li><li><span class="tick">✓</span><span>Walked your team through the preview site and collected the first round of feedback.</span><span class="who">Jack Squire</span></li></ul></div><div class="wgroup"><div class="subh">Email &amp; SMS Marketing</div><ul class="wlist"><li><span class="tick">✓</span><span>Connected your email and SMS marketing platform to our systems.</span><span class="who">Jack Squire</span></li><li><span class="tick">✓</span><span>Built the customer follow-up email and text program that brings past customers back for repeat bookings.</span><span class="who">Jack Squire</span></li><li><span class="tick">✓</span><span>Ran launch day for email and text marketing: tested promo codes, scheduled the first sends, and watched the first automated messages go out live.</span><span class="who">Jack Squire</span></li></ul></div><div class="wgroup"><div class="subh">Measurement &amp; Tracking</div><ul class="wlist"><li><span class="tick">✓</span><span>Diagnosed the issue that was stopping ad conversions from being tracked, so results are recorded correctly.</span><span class="who">Rehan Saleem</span></li><li><span class="tick">✓</span><span>Built a live dashboard combining your ads, Google Search, and website analytics in one view.</span><span class="who">Daniel</span></li></ul></div><div class="wgroup"><div class="subh">Onboarding</div><ul class="wlist"><li><span class="tick">✓</span><span>Prepared the plan and materials for your kickoff call.</span></li></ul></div><div class="wgroup"><div class="subh">Google Ads</div><ul class="wlist"><li><span class="tick">✓</span><span>Launched your Google Ads campaigns.</span><span class="who">Leonardo</span></li><li><span class="tick">✓</span><span>Expanded Google Ads targeting to cover Rancho Bernardo.</span><span class="who">Daniel</span></li></ul></div><div class="wgroup"><div class="subh">Content Production</div><ul class="wlist"><li><span class="tick">✓</span><span>Published a new post to your Google Business Profile.</span><span class="who">Daniel</span></li><li><span class="tick">✓</span><span>Published a second Google Business Profile post for the week.</span><span class="who">Daniel</span></li><li><span class="tick">✓</span><span>Wrote the new Paint Protection Film (PPF) service page in your brand voice.</span><span class="who">Darko</span></li><li><span class="tick">✓</span><span>Wrote the new Window Tinting service page in your brand voice.</span><span class="who">Darko</span></li><li><span class="tick">✓</span><span>Wrote the new Ceramic Coating service page in your brand voice.</span><span class="who">Darko</span></li><li><span class="tick">✓</span><span>Wrote the new Mobile Auto Detailing service page in your brand voice.</span><span class="who">Darko</span></li><li><span class="tick">✓</span><span>Completed the local SEO groundwork so nearby customers find you on Google Search and Maps.</span><span class="who">Darko</span></li></ul></div><div class="wgroup"><div class="subh">Website Redesign</div><ul class="wlist"><li><span class="tick">✓</span><span>Set up developer access for the new website build.</span><span class="who">Jack Squire</span></li><li><span class="tick">✓</span><span>Built the first working version of your new website.</span><span class="who">Daniel</span></li><li><span class="tick">✓</span><span>Applied the round of revisions your team sent back on the new site.</span><span class="who">Daniel</span></li></ul></div></div><p class="read">July was a build-and-launch month. The new website went from its first working version to a polished build shaped by your team&#x27;s feedback, with service pages rebuilt around your real pricing, videos, and photos, and a full quality check behind it. In parallel, Google Ads went live across your service area with conversion tracking verified, your automated email and text marketing launched with its first promo sends, and new service pages plus local SEO groundwork strengthened how you show up on Google. Next we move to finishing the measurement setup so every call and booking is tracked, automating your monthly reporting, testing every email and text sequence end to end before it switches on, and scoping an automated way to ask happy customers for Google reviews.</p></section>
+<section><div class="sec-head"><h2>Revenue — completed jobs</h2><span class="win num">July 2026 · source: csv</span></div><div class="card pad"><div class="rev-top"><div><div class="rev-big num">$186,805</div><div class="rev-cap">Total billed this period · <b class="num">$6,026</b> average per day</div></div><div class="pill">▲ up 1.0%</div></div><figure><div class="chart-wrap"><svg id="revChart" viewBox="0 0 920 220" role="img" aria-label="Daily billed revenue over the reporting period"></svg></div></figure><div class="tiles" style="margin-top:20px"><div class="tile"><div class="k">Best day</div><div class="v num">$10,118</div><div class="d flat">2026-07-01</div></div><div class="tile"><div class="k">Avg / day</div><div class="v num">$6,026</div><div class="d flat"></div></div><div class="tile"><div class="k">Period total</div><div class="v num">$186.8k</div><div class="d flat"></div></div><div class="tile"><div class="k">Prior period</div><div class="v num">$184,890</div><div class="d flat"></div></div></div><p class="read">Billing held steady with a slight edge over the prior period — a solid result for a month when traffic was quieter, and consistent with better-qualified visitors booking at a healthy clip. For a booking-led business, flat-to-up revenue on lower traffic is the pattern you want while the new site and ads take over acquisition.</p></div></section>
+<section><div class="sec-head"><h2>Website traffic</h2><span class="win num">July 2026 · Google Analytics 4</span></div><div class="tiles"><div class="tile"><div class="k">Sessions</div><div class="v num">5,666</div><div class="d down">▼ down 14.2%</div></div><div class="tile"><div class="k">Users</div><div class="v num">4,837</div><div class="d down">▼ down 15.2%</div></div><div class="tile"><div class="k">Key events</div><div class="v num">675</div><div class="d up">▲ up 3.2%</div></div><div class="tile"><div class="k">Bounce rate</div><div class="v num">58.2%</div><div class="d up">▲ down 4.4%</div></div></div><p class="read">Fewer people visited than in June, but the visitors who came were more likely to act — key events edged up even as sessions fell, and bounce rate improved. That points to better-qualified traffic rather than a healthier month overall, and it is the pattern we expect while paid traffic ramps and the rebuilt site is still waiting to take over. The spikes mid-month line up with promo sends and ad activity.</p></section>
+<section><div class="sec-head"><h2>Organic search</h2><span class="win num">July 2026 · Search Console</span></div><div class="tiles"><div class="tile"><div class="k">Clicks</div><div class="v num">585</div><div class="d down">▼ down 21.2%</div></div><div class="tile"><div class="k">Impressions</div><div class="v num">60,435</div><div class="d down">▼ down 22.9%</div></div><div class="tile"><div class="k">Avg. CTR</div><div class="v num">0.97%</div><div class="d up">▲ up 2.2%</div></div><div class="tile"><div class="k">Avg. position</div><div class="v num">21.6</div><div class="d down">▼ slipped 12.5%</div></div></div><p class="read">Search visibility eased back across the board — fewer clicks and impressions than June, and your average ranking slipped. The bright spot is branded search: more people looked for <b>Smith Bros by name</b> and clicked through, which usually follows ads and marketing activity. Non-branded local terms are where the slide happened, and that is exactly what the rebuilt site and the new SEO-optimized service pages are built to recover once live.</p><div class="card pad" style="margin-top:16px"><div class="tablewrap"><table><thead><tr><th>Page</th><th>Clicks</th><th>Change</th><th>Impressions</th></tr></thead><tbody><tr><td>Homepage</td><td class="num">216</td><td class="num">-20</td><td class="num">13,111</td></tr><tr><td>/mobile-detailing/escondido</td><td class="num">10</td><td class="num">-1</td><td class="num">1,365</td></tr><tr><td>/services/rv-detailing</td><td class="num">9</td><td class="num">+5</td><td class="num">2,161</td></tr><tr><td>/mobile-window-tinting/escondido</td><td class="num">7</td><td class="num">+1</td><td class="num">603</td></tr><tr><td>/mobile-detailing/vista</td><td class="num">7</td><td class="num">+1</td><td class="num">1,489</td></tr><tr><td>/services</td><td class="num">6</td><td class="num">-5</td><td class="num">467</td></tr><tr><td>/services/boat-detailing</td><td class="num">4</td><td class="num">0</td><td class="num">4,017</td></tr><tr><td>/services/mobile-auto-detailing</td><td class="num">4</td><td class="num">-2</td><td class="num">4,848</td></tr></tbody></table></div></div></section>
+<section><div class="sec-head"><h2>Email &amp; SMS (Klaviyo)</h2><span class="win num">July 2026 · Klaviyo</span></div><div class="tiles"><div class="tile"><div class="k">SMS click rate</div><div class="v num">16.2%</div><div class="d up">▲ up 5.1%</div></div><div class="tile"><div class="k">SMS clicks</div><div class="v num">2,694</div><div class="d down">▼ down 17.7%</div></div><div class="tile"><div class="k">Email click rate</div><div class="v num">0.72%</div><div class="d down">▼ down 1.2%</div></div><div class="tile"><div class="k">Subscribers</div><div class="v num">7,670</div><div class="d up">▲ new</div></div></div><p class="read">SMS is doing the heavy lifting: its click rate improved again and remains many times email&#x27;s, which is typical for a local service business — texts get read. Total clicks eased because the back half of July moved from one big weekly blast to smaller, targeted test sends — the A/B structure we set up to learn which offers convert before scaling them. Subscriber count is reported here for the first time, so it shows as a new baseline rather than a change.</p><div class="note"><b>On revenue attribution:</b> Email &amp; SMS are reported here by reach and engagement, not dollars. Tying revenue back to individual campaigns needs the booking data in the warehouse — that groundwork is in progress. UTMs are already on campaign links, so the attribution history is building now.</div></section>
+
+  <footer>
+    <div><b style="color:var(--ink-2)">Data sources</b> — every figure in this report is pulled directly from the platforms below:</div>
+    <div class="srcs"><span class="src">Revenue</span><span class="src">Google Analytics 4</span><span class="src">Search Console</span><span class="src">Klaviyo</span></div>
+    <div>Freshness: Analytics through 2026-08-02 · Search Console through 2026-08-01. Search Console reports on a 2–3 day lag by design.</div>
+  </footer>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script>
+
+  const REV = [["2026-07-01", 10118.44], ["2026-07-02", 7326.04], ["2026-07-03", 6797.72], ["2026-07-04", 4975.67], ["2026-07-05", 2746.0], ["2026-07-06", 4050.06], ["2026-07-07", 6354.28], ["2026-07-08", 6731.57], ["2026-07-09", 4918.71], ["2026-07-10", 5655.36], ["2026-07-11", 7693.38], ["2026-07-12", 5069.44], ["2026-07-13", 7938.37], ["2026-07-14", 4808.4], ["2026-07-15", 6907.54], ["2026-07-16", 6254.69], ["2026-07-17", 10049.19], ["2026-07-18", 4732.81], ["2026-07-19", 3452.55], ["2026-07-20", 5949.95], ["2026-07-21", 6634.49], ["2026-07-22", 7730.01], ["2026-07-23", 4446.06], ["2026-07-24", 4708.38], ["2026-07-25", 4728.07], ["2026-07-26", 4809.49], ["2026-07-27", 4358.01], ["2026-07-28", 9033.16], ["2026-07-29", 5259.76], ["2026-07-30", 5207.31], ["2026-07-31", 7360.56]];
+  (function(){
+    if(!REV.length) return;
+    const svg=document.getElementById("revChart"); if(!svg) return;
+    const W=920,H=220, m={t:14,r:10,b:26,l:52};
+    const iw=W-m.l-m.r, ih=H-m.t-m.b, n=REV.length;
+    const peak=Math.max.apply(null,REV.map(d=>d[1]))||1;
+    // Round the axis up to a clean step so gridlines land on readable numbers.
+    const step0=Math.pow(10,Math.floor(Math.log10(peak)))/2;
+    const max=Math.ceil(peak/step0)*step0 || 1;
+    const bw=iw/n*0.64, step=iw/n;
+    const x=i=>m.l+step*i+(step-bw)/2, y=v=>m.t+ih-(v/max)*ih;
+    const fmt=v=>v>=1000?"$"+(v/1000).toFixed(v%1000?1:0)+"k":"$"+v;
+    let g="";
+    for(let k=0;k<=4;k++){
+      const v=max*k/4, yy=y(v).toFixed(1);
+      g+=`<line class="axline" x1="${m.l}" y1="${yy}" x2="${W-m.r}" y2="${yy}"/>`;
+      g+=`<text class="axtxt" x="${m.l-8}" y="${(+yy+3)}" text-anchor="end">${fmt(v)}</text>`;
+    }
+    REV.forEach((d,i)=>{
+      const bh=Math.max(2,(d[1]/max)*ih), yy=(m.t+ih-bh).toFixed(1);
+      g+=`<rect class="bar" x="${x(i).toFixed(1)}" y="${yy}" width="${bw.toFixed(1)}" height="${bh.toFixed(1)}" rx="3" data-i="${i}"/>`;
+    });
+    const ticks=n<=7?REV.map((_,i)=>i):[0,Math.floor(n/4),Math.floor(n/2),Math.floor(3*n/4),n-1];
+    ticks.forEach(i=>{
+      g+=`<text class="axtxt" x="${(x(i)+bw/2).toFixed(1)}" y="${H-8}" text-anchor="middle">${REV[i][0].slice(5)}</text>`;
+    });
+    svg.innerHTML=g;
+    const tip=document.getElementById("tip");
+    svg.querySelectorAll(".bar").forEach(b=>{
+      b.style.cursor="crosshair";
+      b.addEventListener("mouseenter",()=>{
+        const d=REV[+b.dataset.i];
+        tip.innerHTML=`<span>$${d[1].toLocaleString()}</span> <span class="t2">${d[0]}</span>`;
+        tip.style.opacity=1; b.style.opacity=.82;
+      });
+      b.addEventListener("mousemove",ev=>{ tip.style.left=(ev.clientX+12)+"px"; tip.style.top=(ev.clientY-34)+"px"; });
+      b.addEventListener("mouseleave",()=>{ tip.style.opacity=0; b.style.opacity=""; });
+    });
+  })();
+
+</script>
+</body>
+</html>
