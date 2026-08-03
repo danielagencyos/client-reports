@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Boujee Nurse — Monthly Marketing Report</title>
+<style>
+
+  :root{
+    --bg:#eef3f6; --surface:#ffffff; --surface-2:#f5f8fa;
+    --ink:#14232e; --ink-2:#33454f; --muted:#5f7079; --hair:#e0e8ed;
+    --accent:#0f6f8c; --accent-2:#2e9fc4; --accent-wash:#e4f1f6;
+    --good:#2c8659; --good-wash:#e3f1e9; --warn:#b47a24;
+    --shadow:0 1px 2px rgba(20,35,46,.06), 0 8px 24px rgba(20,35,46,.05);
+    --maxw:920px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0c141c; --surface:#152230; --surface-2:#101b26;
+      --ink:#e9eff3; --ink-2:#c2cfd8; --muted:#8ea0ac; --hair:#243541;
+      --accent:#3aa7cb; --accent-2:#5cc0dd; --accent-wash:#132b36;
+      --good:#4bb17e; --good-wash:#142a20; --warn:#d0a251;
+      --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#eef3f6; --surface:#ffffff; --surface-2:#f5f8fa;
+    --ink:#14232e; --ink-2:#33454f; --muted:#5f7079; --hair:#e0e8ed;
+    --accent:#0f6f8c; --accent-2:#2e9fc4; --accent-wash:#e4f1f6;
+    --good:#2c8659; --good-wash:#e3f1e9; --warn:#b47a24;
+    --shadow:0 1px 2px rgba(20,35,46,.06), 0 8px 24px rgba(20,35,46,.05);
+  }
+  :root[data-theme="dark"]{
+    --bg:#0c141c; --surface:#152230; --surface-2:#101b26;
+    --ink:#e9eff3; --ink-2:#c2cfd8; --muted:#8ea0ac; --hair:#243541;
+    --accent:#3aa7cb; --accent-2:#5cc0dd; --accent-wash:#132b36;
+    --good:#4bb17e; --good-wash:#142a20; --warn:#d0a251;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:clamp(20px,4vw,52px) clamp(16px,4vw,32px) 72px}
+  .num{font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1}
+
+  /* ---- header ---- */
+  header{margin-bottom:34px}
+  .eyebrow{font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); font-weight:650}
+  h1{font-size:clamp(28px,5vw,40px); line-height:1.08; margin:.32em 0 .18em; font-weight:680; letter-spacing:-.02em; text-wrap:balance}
+  .sub{color:var(--muted); font-size:15px; margin:0}
+  .status{
+    display:inline-flex; align-items:center; gap:8px; margin-top:18px;
+    background:var(--good-wash); color:var(--good); border:1px solid color-mix(in srgb,var(--good) 26%,transparent);
+    padding:7px 13px; border-radius:999px; font-size:13px; font-weight:600;
+  }
+  .status .dot{width:8px; height:8px; border-radius:50%; background:var(--good); box-shadow:0 0 0 3px color-mix(in srgb,var(--good) 22%,transparent)}
+
+  /* ---- section scaffold ---- */
+  section{margin-top:40px}
+  .sec-head{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:16px}
+  .sec-head h2{font-size:20px; margin:0; font-weight:660; letter-spacing:-.01em}
+  .sec-head .win{font-size:12.5px; color:var(--muted); letter-spacing:.02em}
+  .card{background:var(--surface); border:1px solid var(--hair); border-radius:16px; box-shadow:var(--shadow)}
+  .pad{padding:clamp(18px,3vw,26px)}
+
+  /* ---- highlights band ---- */
+  .ships{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+  @media (max-width:680px){.ships{grid-template-columns:1fr}}
+  .ship{background:var(--surface); border:1px solid var(--hair); border-radius:14px; padding:18px 18px 20px; box-shadow:var(--shadow); position:relative}
+  .ship .tag{font-size:11px; letter-spacing:.12em; text-transform:uppercase; font-weight:650; color:var(--accent)}
+  .ship h3{font-size:16px; margin:9px 0 6px; font-weight:640; letter-spacing:-.01em}
+  .ship p{margin:0; font-size:13.5px; color:var(--muted); line-height:1.5}
+  .ship .chk{position:absolute; top:16px; right:16px; width:20px; height:20px; border-radius:50%; background:var(--good-wash); color:var(--good); display:grid; place-items:center; font-size:12px; font-weight:800}
+
+  /* ---- KPI tiles ---- */
+  .tiles{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--hair); border-radius:16px; overflow:hidden; border:1px solid var(--hair)}
+  @media (max-width:680px){.tiles{grid-template-columns:repeat(2,1fr)}}
+  .tile{background:var(--surface); padding:18px 18px 16px}
+  .tile .k{font-size:12px; color:var(--muted); letter-spacing:.02em; margin-bottom:7px}
+  .tile .v{font-size:26px; font-weight:680; letter-spacing:-.02em; line-height:1}
+  .tile .d{font-size:12.5px; margin-top:7px; font-weight:600; display:inline-flex; align-items:center; gap:4px}
+  .up{color:var(--good)} .flat{color:var(--muted)} .soft{color:var(--warn)}
+
+  .read{font-size:14.5px; color:var(--ink-2); margin:16px 2px 0; line-height:1.6}
+  .read b{color:var(--ink); font-weight:640}
+
+  /* ---- hero revenue ---- */
+  .rev-top{display:flex; align-items:flex-end; gap:26px; flex-wrap:wrap; margin-bottom:20px}
+  .rev-big{font-size:clamp(38px,7vw,54px); font-weight:700; letter-spacing:-.03em; line-height:.95}
+  .rev-cap{font-size:13px; color:var(--muted); margin-top:6px}
+  .pill{display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:999px; font-size:13px; font-weight:650; background:var(--good-wash); color:var(--good)}
+
+  /* chart */
+  figure{margin:0}
+  .chart-wrap{overflow-x:auto}
+  svg{display:block; width:100%; height:auto}
+  .bar{fill:var(--accent-2)}
+  .bar.today{fill:var(--accent); opacity:.4}
+  .axline{stroke:var(--hair)}
+  .axtxt{fill:var(--muted); font-size:10px; font-variant-numeric:tabular-nums}
+  .tip{position:fixed; pointer-events:none; opacity:0; transition:opacity .1s; background:var(--ink); color:var(--bg); padding:6px 9px; border-radius:8px; font-size:12px; font-weight:600; white-space:nowrap; z-index:9; box-shadow:var(--shadow)}
+  .tip .t2{color:color-mix(in srgb,var(--bg) 62%,transparent); font-weight:500}
+
+  /* ---- tables ---- */
+  .tablewrap{overflow-x:auto; margin-top:16px}
+  table{width:100%; border-collapse:collapse; font-size:13.5px; min-width:440px}
+  th,td{text-align:right; padding:9px 12px; border-bottom:1px solid var(--hair); font-variant-numeric:tabular-nums}
+  th:first-child,td:first-child{text-align:left; font-variant-numeric:normal}
+  thead th{font-size:11.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); font-weight:650; border-bottom:1px solid var(--hair)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.total td{font-weight:680; color:var(--ink); border-top:2px solid var(--hair)}
+  .chip{display:inline-block; font-size:11px; font-weight:650; padding:2px 8px; border-radius:6px; letter-spacing:.02em}
+  .chip.on{background:var(--good-wash); color:var(--good)}
+  .chip.off{background:var(--surface-2); color:var(--muted); border:1px solid var(--hair)}
+
+  .note{font-size:13px; color:var(--muted); margin-top:14px; padding:12px 14px; background:var(--surface-2); border-radius:10px; border:1px solid var(--hair); line-height:1.5}
+  .note b{color:var(--ink-2)}
+
+  /* ---- klaviyo detail blocks ---- */
+  .subh{font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); font-weight:650; margin:0 0 8px; display:flex; align-items:center; gap:7px}
+  .kgrid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  @media (max-width:680px){.kgrid{grid-template-columns:1fr}}
+  .kblock{background:var(--surface-2); border:1px solid var(--hair); border-radius:12px; padding:16px 17px}
+  .kblock p{margin:0; font-size:13.5px; color:var(--ink-2); line-height:1.56}
+  .kblock p b{color:var(--ink); font-weight:640}
+  .kblock.warn{background:color-mix(in srgb,var(--warn) 9%,var(--surface)); border-color:color-mix(in srgb,var(--warn) 30%,transparent)}
+  .kblock.warn .subh{color:var(--warn)}
+  .kblock .flag{width:16px; height:16px; border-radius:4px; background:color-mix(in srgb,var(--warn) 20%,transparent); color:var(--warn); display:grid; place-items:center; font-size:11px; font-weight:800}
+  .draftpill{display:inline-block; margin-top:9px; font-size:11.5px; font-weight:650; color:var(--good); background:var(--good-wash); border:1px solid color-mix(in srgb,var(--good) 26%,transparent); padding:3px 9px; border-radius:6px}
+
+  /* ---- footer ---- */
+  footer{margin-top:52px; padding-top:22px; border-top:1px solid var(--hair); color:var(--muted); font-size:12.5px; line-height:1.7}
+  footer .srcs{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 16px}
+  footer .src{background:var(--surface); border:1px solid var(--hair); border-radius:8px; padding:5px 11px; font-weight:600; color:var(--ink-2); font-size:12px}
+  a{color:var(--accent)}
+
+  /* ---- work list (completed items, grouped) ---- */
+  .wgroup{margin-top:18px}
+  .wgroup:first-child{margin-top:0}
+  .wgroup .subh{margin-bottom:10px}
+  .wlist{list-style:none; margin:0; padding:0}
+  .wlist li{display:flex; gap:10px; align-items:flex-start; padding:7px 0; border-bottom:1px solid var(--hair); font-size:14px; color:var(--ink-2); line-height:1.5}
+  .wlist li:last-child{border-bottom:none}
+  .wlist .tick{flex:0 0 auto; width:17px; height:17px; margin-top:2px; border-radius:50%; background:var(--good-wash); color:var(--good); display:grid; place-items:center; font-size:10px; font-weight:800}
+  .wlist .who{color:var(--muted); font-size:12.5px; white-space:nowrap}
+
+  /* ---- awaiting client ---- */
+  .await{background:color-mix(in srgb,var(--warn) 9%,var(--surface)); border:1px solid color-mix(in srgb,var(--warn) 30%,transparent); border-radius:12px; padding:16px 17px; margin-top:16px}
+  .await .subh{color:var(--warn)}
+  .await ul{list-style:none; margin:0; padding:0}
+  .await li{padding:6px 0; font-size:14px; color:var(--ink-2); line-height:1.5; border-bottom:1px solid color-mix(in srgb,var(--warn) 18%,transparent)}
+  .await li:last-child{border-bottom:none}
+
+  /* ---- exec summary ---- */
+  .lede{font-size:16.5px; line-height:1.6; color:var(--ink-2); margin:0 0 4px; max-width:66ch}
+  .lede b{color:var(--ink); font-weight:640}
+
+  /* tile deltas can also be negative */
+  .down{color:var(--warn)}
+
+  @media print{
+    body{background:#fff}
+    section{break-inside:avoid}
+    .card,.tile,.ship{box-shadow:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Monthly Marketing Report</div>
+    <h1>Boujee Nurse</h1>
+    <p class="sub">Prepared by Outrider Digital · July 2026</p>
+    
+  </header>
+
+<section style="margin-top:28px"><p class="lede">July was the strongest month yet for your site&#x27;s visibility. Google clicks more than doubled, your average ranking moved into page-one territory, and site visits nearly doubled with engagement holding. The educational treatment-timeline pages are doing the heavy lifting, pulling in people researching exactly the treatments you offer.</p></section>
+<section><div class="sec-head"><h2>Website traffic</h2><span class="win num">July 2026 · Google Analytics 4</span></div><div class="tiles"><div class="tile"><div class="k">Sessions</div><div class="v num">5,164</div><div class="d up">▲ up 96.7%</div></div><div class="tile"><div class="k">Users</div><div class="v num">4,777</div><div class="d up">▲ up 94.3%</div></div><div class="tile"><div class="k">Key events</div><div class="v num">0</div><div class="d flat">▬ no prior data</div></div><div class="tile"><div class="k">Bounce rate</div><div class="v num">54.1%</div><div class="d flat">▬ steady</div></div></div><p class="read">Visits nearly doubled against the prior period, and the growth was healthy — bounce rate held steady rather than ballooning the way it does when traffic quality drops. Almost all of this growth is arriving from search, so it is compounding rather than paid-for.</p></section>
+<section><div class="sec-head"><h2>Organic search</h2><span class="win num">July 2026 · Search Console</span></div><div class="tiles"><div class="tile"><div class="k">Clicks</div><div class="v num">3,678</div><div class="d up">▲ up 116.1%</div></div><div class="tile"><div class="k">Impressions</div><div class="v num">454,824</div><div class="d up">▲ up 46.4%</div></div><div class="tile"><div class="k">Avg. CTR</div><div class="v num">0.81%</div><div class="d up">▲ up 47.6%</div></div><div class="tile"><div class="k">Avg. position</div><div class="v num">9.6</div><div class="d up">▲ improved 18.1%</div></div></div><p class="read">Search is where the story is. Clicks more than doubled, impressions grew strongly, and both click-through rate and average ranking improved at the same time — Google is showing your pages more often, higher, and people are choosing them more. The treatment-timeline guides — microneedling recovery, lip filler swelling, Sculptra results — are your top performers, reaching people actively researching those treatments. The next step is turning those readers into enquiries.</p><div class="card pad" style="margin-top:16px"><div class="tablewrap"><table><thead><tr><th>Page</th><th>Clicks</th><th>Change</th><th>Impressions</th></tr></thead><tbody><tr><td>/microneedling-recovery-timeline</td><td class="num">288</td><td class="num">+172</td><td class="num">26,413</td></tr><tr><td>/lip-filler-swelling-timeline</td><td class="num">184</td><td class="num">+112</td><td class="num">31,112</td></tr><tr><td>/sculptra-results-timeline</td><td class="num">133</td><td class="num">+88</td><td class="num">10,412</td></tr><tr><td>/dysport-timeline</td><td class="num">90</td><td class="num">+52</td><td class="num">15,265</td></tr><tr><td>/how-many-units-of-botox</td><td class="num">38</td><td class="num">+35</td><td class="num">16,867</td></tr><tr><td>Homepage</td><td class="num">26</td><td class="num">-16</td><td class="num">736</td></tr><tr><td>/botox-vs-jeuveau-vs-dysport</td><td class="num">19</td><td class="num">+15</td><td class="num">4,580</td></tr><tr><td>/can-you-dissolve-filler</td><td class="num">9</td><td class="num">+5</td><td class="num">4,510</td></tr></tbody></table></div></div></section>
+
+  <footer>
+    <div><b style="color:var(--ink-2)">Data sources</b> — every figure in this report is pulled directly from the platforms below:</div>
+    <div class="srcs"><span class="src">Google Analytics 4</span><span class="src">Search Console</span></div>
+    <div>Freshness: Analytics through 2026-08-02 · Search Console through 2026-08-01. Search Console reports on a 2–3 day lag by design.</div>
+  </footer>
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script>
+
+</script>
+</body>
+</html>
