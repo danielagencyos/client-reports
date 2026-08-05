@@ -370,7 +370,7 @@
   <div class="masthead-inner">
     <p class="eyebrow">Outrider Digital · SEO &amp; CRO Design Guidelines Audit</p>
     <h1 class="display">Smith Bros Mobile Detailing<br>Website Rebuild — Pre-Launch Audit</h1>
-    <p class="verdict"><strong>Verdict: strong build, ready for launch after three fixes.</strong> The mockup passes most of the guidelines checklist — semantics, page speed, mobile CRO, and metadata are in good shape across all ~190 pages. The gaps that matter: no structured data, no breadcrumbs, and every image is hotlinked from the client's old Webflow CDN.</p>
+    <p class="verdict"><strong>Verdict: strong build, ready for launch after four fixes.</strong> The mockup passes most of the guidelines checklist on both the SEO and CRO side — semantics, page speed, mobile experience, message match, and pricing transparency are in good shape across all ~190 pages. The gaps that matter: no structured data, no breadcrumbs, no analytics or event tracking, and every image is hotlinked from the client's old Webflow CDN.</p>
     <div class="meta-row">
       <div><span class="k">Site audited</span><span class="v mono">smith-bros-detailing.vercel.app</span></div>
       <div><span class="k">Production domain</span><span class="v mono">www.sbmobiledetailing.com</span></div>
@@ -385,20 +385,23 @@
 
   <section aria-labelledby="scorecard-title">
     <h2 class="section-title" id="scorecard-title">Checklist Scorecard</h2>
-    <p class="section-sub">Each area of the agency's SEO &amp; CRO Web Design Guidelines, scored against the live deploy. Section numbers reference the guidelines document.</p>
+    <p class="section-sub">Every applicable area of the agency's SEO &amp; CRO Web Design Guidelines, scored against the live deploy. Section numbers reference the guidelines document.</p>
     <div class="scorecard">
+      <div class="score ok"><span class="light"></span><span><span class="label">Strategy &amp; message match</span><br><span class="note">§1 · §11 — one purpose per page; city pages genuinely localized</span></span><span class="tag">Pass</span></div>
       <div class="score ok"><span class="light"></span><span><span class="label">Site architecture &amp; navigation</span><br><span class="note">§2 — clean hubs, 2–3 clicks deep, crawlable HTML nav</span></span><span class="tag">Pass</span></div>
       <div class="score ok"><span class="light"></span><span><span class="label">Content &amp; heading hierarchy</span><br><span class="note">§3 — one H1/page, logical H2→H3, semantic regions</span></span><span class="tag">Pass</span></div>
       <div class="score ok"><span class="light"></span><span><span class="label">Above-the-fold clarity</span><br><span class="note">§4 — specific headline, dominant CTA, trust signal</span></span><span class="tag">Pass</span></div>
       <div class="score ok"><span class="light"></span><span><span class="label">Mobile-first design</span><br><span class="note">§5 — sticky CTA bar, tel/sms links, no h-scroll</span></span><span class="tag">Pass</span></div>
       <div class="score ok"><span class="light"></span><span><span class="label">Page speed &amp; Core Web Vitals</span><br><span class="note">§6 — AVIF, lazy-load, facade video, no 3rd-party JS</span></span><span class="tag">Pass</span></div>
-      <div class="score ok"><span class="light"></span><span><span class="label">Calls to action</span><br><span class="note">§7 — clear primary/secondary split, repeated CTAs</span></span><span class="tag">Pass</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Calls to action</span><br><span class="note">§7 — clear primary/secondary split, repeated CTAs, hover/focus states</span></span><span class="tag">Pass</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Distraction &amp; focus</span><br><span class="note">§8 — no popups or promo bars; cookie notice is dismissible</span></span><span class="tag">Pass</span></div>
       <div class="score part"><span class="light"></span><span><span class="label">Forms</span><br><span class="note">§9 — no on-site lead form; funnel is call/text/book app</span></span><span class="tag">Review</span></div>
-      <div class="score ok"><span class="light"></span><span><span class="label">Trust signals</span><br><span class="note">§10 — attributed reviews at decision points</span></span><span class="tag">Pass</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Trust signals</span><br><span class="note">§10 — attributed reviews at decision points; real package pricing</span></span><span class="tag">Pass</span></div>
       <div class="score part"><span class="light"></span><span><span class="label">Internal linking</span><br><span class="note">§12 — good contextual links, but no breadcrumbs</span></span><span class="tag">Partial</span></div>
       <div class="score part"><span class="light"></span><span><span class="label">Images &amp; accessibility</span><br><span class="note">§13–14 — alt text solid; platform logos alt=""</span></span><span class="tag">Partial</span></div>
       <div class="score miss"><span class="light"></span><span><span class="label">Structured data</span><br><span class="note">§15 — zero JSON-LD on any page</span></span><span class="tag">Miss</span></div>
       <div class="score ok"><span class="light"></span><span><span class="label">Crawlability &amp; indexation</span><br><span class="note">§15 — SSG output, canonicals, sitemap, staging noindex</span></span><span class="tag">Pass</span></div>
+      <div class="score miss"><span class="light"></span><span><span class="label">Measurement &amp; experimentation</span><br><span class="note">§17 — no analytics, no event tracking on the build</span></span><span class="tag">Miss</span></div>
     </div>
   </section>
 
@@ -412,13 +415,15 @@
       <li><strong>Performance as a design constraint.</strong> AVIF/WebP images, below-fold lazy-loading with the hero exempted and prioritized, self-hosted fonts, essentially zero third-party scripts, <code>prefers-reduced-motion</code> respected, and YouTube embedded as a thumbnail facade instead of a live iframe.</li>
       <li><strong>Conversion path built for how people buy detailing.</strong> "Book Now" (external booking app) as the visually dominant primary, "Instant Quote" as secondary, a compact sticky mobile CTA bar, and tel:/sms: links throughout.</li>
       <li><strong>Real, attributed proof at decision points.</strong> "1,000+ five-star reviews" and "since 1994" sit beside CTAs, and service pages carry named, located reviews ("Aleksey G., San Diego, CA") — exactly what §10 asks for.</li>
+      <li><strong>Transparent pricing.</strong> Service pages show real package prices (Bronze $599 → Gold $799 on ceramic coating) rather than hiding cost behind a call — §10's strongest trust signal for a high-commitment purchase.</li>
+      <li><strong>Genuine message match on local pages.</strong> The La Jolla page isn't a find-and-replace template — it carries neighborhood-specific copy (the Cove, coastal conditions) satisfying §11, and every page has one clear purpose with no competing offers, popups, or promo bars (§1, §8).</li>
       <li><strong>Correct staging hygiene.</strong> The mockup is noindexed with canonicals to production, so it can't compete with the client's live site while under review.</li>
     </ul>
   </section>
 
   <section aria-labelledby="findings-title">
     <h2 class="section-title" id="findings-title">Findings — In Priority Order</h2>
-    <p class="section-sub">Numbered by recommended fix order. Items 1–3 are the ones that materially affect the launch.</p>
+    <p class="section-sub">Numbered by recommended fix order. Items 1–4 are the ones that materially affect the launch.</p>
 
     <article class="finding">
       <div class="finding-head">
@@ -453,6 +458,16 @@
     <article class="finding">
       <div class="finding-head">
         <span class="fnum">4</span>
+        <h3>No analytics or event tracking on the build</h3>
+        <div class="badges"><span class="badge high">High impact</span><span class="badge ref">§17</span></div>
+      </div>
+      <p>The mockup ships with no measurement layer at all — no GA4, no Tag Manager, nothing. The site's conversion actions are mostly off-site or tap-based (external booking app, tel:, sms:), which are exactly the interactions that vanish from reporting unless events are wired up deliberately. Without them there's no baseline at launch and no way to evaluate the funnel per §17 — the same gap that makes finding 7's form question undecidable.</p>
+      <div class="fix"><b>Fix</b> Install GA4 (via GTM) before launch with events for: Book Now clicks (outbound to the booking app), Instant Quote clicks, tel: and sms: taps, and email clicks. A half-day including testing in DebugView.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">5</span>
         <h3>Review-platform attribution lives only inside images</h3>
         <div class="badges"><span class="badge medium">Medium</span><span class="badge ref">§3 · §13</span></div>
       </div>
@@ -462,7 +477,7 @@
 
     <article class="finding">
       <div class="finding-head">
-        <span class="fnum">5</span>
+        <span class="fnum">6</span>
         <h3>Legacy copy carried over on the /cars/ pages</h3>
         <div class="badges"><span class="badge medium">Medium</span><span class="badge ref">§3 · §4</span></div>
       </div>
@@ -472,7 +487,7 @@
 
     <article class="finding">
       <div class="finding-head">
-        <span class="fnum">6</span>
+        <span class="fnum">7</span>
         <h3>No on-site lead form — "Instant Quote" lands on a form-less contact page</h3>
         <div class="badges"><span class="badge low">Discuss with client</span><span class="badge ref">§9 · §17</span></div>
       </div>
@@ -482,7 +497,7 @@
 
     <article class="finding">
       <div class="finding-head">
-        <span class="fnum">7</span>
+        <span class="fnum">8</span>
         <h3>Staging noindex is a manual launch step</h3>
         <div class="badges"><span class="badge low">Launch checklist</span></div>
       </div>
@@ -494,14 +509,15 @@
   <section aria-labelledby="launch-title">
     <div class="launch">
       <h2 id="launch-title">Launch Checklist</h2>
-      <p class="section-sub">In order. Items 1–3 before DNS cutover; 4–6 immediately after.</p>
+      <p class="section-sub">In order. Items 1–4 before DNS cutover; 5–7 immediately after.</p>
       <ol>
         <li><strong>Migrate all images off the Webflow CDN</strong> and rewrite URLs (finding 3).</li>
         <li><strong>Add structured data + breadcrumbs</strong> at the layout level (findings 1–2).</li>
-        <li><strong>Remove the noindex tag</strong> in <code>BaseLayout.astro</code> and confirm <code>SITE_URL</code> is set to production (finding 7).</li>
+        <li><strong>Install GA4 with conversion events</strong> — Book Now, Instant Quote, tel:, sms:, email clicks — so the launch has a baseline from day one (finding 4).</li>
+        <li><strong>Remove the noindex tag</strong> in <code>BaseLayout.astro</code> and confirm <code>SITE_URL</code> is set to production (finding 8).</li>
         <li><strong>Verify Core Web Vitals</strong> with PageSpeed Insights once live on the production domain — lab numbers couldn't be pulled during this audit (API quota).</li>
         <li><strong>Submit the sitemap</strong> in Search Console and confirm the old URLs resolve (structure was preserved, so redirects should be minimal).</li>
-        <li><strong>Fix alt text on platform logos</strong> and sweep the /cars/ copy (findings 4–5).</li>
+        <li><strong>Fix alt text on platform logos</strong> and sweep the /cars/ copy (findings 5–6).</li>
       </ol>
     </div>
   </section>
@@ -509,7 +525,7 @@
   <section aria-labelledby="method-title">
     <h2 class="section-title" id="method-title">Method</h2>
     <div class="method">
-      <p>Audited against the agency's "SEO and CRO Web Design Guidelines" on August 5, 2026. Raw HTML was fetched and inspected for five core templates on the live Vercel deploy: homepage, service page (<span class="mono">/services/ceramic-coating</span>), location page (<span class="mono">/mobile-detailing/la-jolla</span>), vehicle page (<span class="mono">/cars/tesla-expert-san-diego</span>), and contact — plus <span class="mono">robots.txt</span> and the sitemap index. Checks covered titles, meta descriptions, canonicals, heading hierarchy, semantic regions, structured data, image formats/alt/lazy-loading, forms, CTAs, fonts, and third-party requests. Lab Core Web Vitals were not measured (PageSpeed Insights anonymous quota exhausted); the performance score above reflects implementation signals in the markup.</p>
+      <p>Audited against the agency's "SEO and CRO Web Design Guidelines" on August 5, 2026. Raw HTML was fetched and inspected for five core templates on the live Vercel deploy: homepage, service page (<span class="mono">/services/ceramic-coating</span>), location page (<span class="mono">/mobile-detailing/la-jolla</span>), vehicle page (<span class="mono">/cars/tesla-expert-san-diego</span>), and contact — plus <span class="mono">robots.txt</span> and the sitemap index. Checks covered titles, meta descriptions, canonicals, heading hierarchy, semantic regions, structured data, image formats/alt/lazy-loading, forms, CTAs, fonts, and third-party requests. The CRO pass additionally reviewed hero copy and above-the-fold hierarchy (§4), pricing transparency (§10), local message match on city pages (§11), interruption patterns and page focus (§8), interactive states (§7, §14), and measurement readiness — analytics and event tracking (§17). Lab Core Web Vitals were not measured (PageSpeed Insights anonymous quota exhausted); the performance score above reflects implementation signals in the markup.</p>
     </div>
   </section>
 
