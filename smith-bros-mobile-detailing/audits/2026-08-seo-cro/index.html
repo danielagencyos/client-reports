@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Smith Bros Mockup — SEO &amp; CRO Audit</title>
+<style>
+  :root {
+    --paper: #ffffff;
+    --mist: #f5f6f8;
+    --card: #ffffff;
+    --ink: #0c0c0c;
+    --mute: #4a5568;
+    --faint: #616a78;
+    --line: rgba(11, 13, 17, 0.12);
+    --accent: #024ad9;
+    --accent-strong: #0335a6;
+    --accent-soft: rgba(2, 74, 217, 0.08);
+    --chrome: #0a0c10;
+    --chrome-2: #12151b;
+    --chrome-text: #eef1f5;
+    --chrome-faint: #9aa1ab;
+    --chrome-accent: #7fa7ff;
+    --pass: #1a7f4e;
+    --pass-soft: rgba(26, 127, 78, 0.1);
+    --warn: #b45309;
+    --warn-soft: rgba(180, 83, 9, 0.1);
+    --fail: #b3261e;
+    --fail-soft: rgba(179, 38, 30, 0.09);
+    --shadow: 0 10px 34px -16px rgba(10, 12, 16, 0.14);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0a0c10;
+      --mist: #12151b;
+      --card: #161a21;
+      --ink: #eef1f5;
+      --mute: #b6bdc7;
+      --faint: #9aa1ab;
+      --line: rgba(238, 241, 245, 0.14);
+      --accent: #7fa7ff;
+      --accent-strong: #a8c2ff;
+      --accent-soft: rgba(127, 167, 255, 0.1);
+      --chrome: #06070a;
+      --chrome-2: #0e1116;
+      --pass: #4cc38a;
+      --pass-soft: rgba(76, 195, 138, 0.12);
+      --warn: #e5a03c;
+      --warn-soft: rgba(229, 160, 60, 0.12);
+      --fail: #ef8a84;
+      --fail-soft: rgba(239, 138, 132, 0.1);
+      --shadow: 0 10px 34px -16px rgba(0, 0, 0, 0.5);
+    }
+  }
+  :root[data-theme="light"] {
+    --paper: #ffffff;
+    --mist: #f5f6f8;
+    --card: #ffffff;
+    --ink: #0c0c0c;
+    --mute: #4a5568;
+    --faint: #616a78;
+    --line: rgba(11, 13, 17, 0.12);
+    --accent: #024ad9;
+    --accent-strong: #0335a6;
+    --accent-soft: rgba(2, 74, 217, 0.08);
+    --chrome: #0a0c10;
+    --chrome-2: #12151b;
+    --pass: #1a7f4e;
+    --pass-soft: rgba(26, 127, 78, 0.1);
+    --warn: #b45309;
+    --warn-soft: rgba(180, 83, 9, 0.1);
+    --fail: #b3261e;
+    --fail-soft: rgba(179, 38, 30, 0.09);
+    --shadow: 0 10px 34px -16px rgba(10, 12, 16, 0.14);
+  }
+  :root[data-theme="dark"] {
+    --paper: #0a0c10;
+    --mist: #12151b;
+    --card: #161a21;
+    --ink: #eef1f5;
+    --mute: #b6bdc7;
+    --faint: #9aa1ab;
+    --line: rgba(238, 241, 245, 0.14);
+    --accent: #7fa7ff;
+    --accent-strong: #a8c2ff;
+    --accent-soft: rgba(127, 167, 255, 0.1);
+    --chrome: #06070a;
+    --chrome-2: #0e1116;
+    --pass: #4cc38a;
+    --pass-soft: rgba(76, 195, 138, 0.12);
+    --warn: #e5a03c;
+    --warn-soft: rgba(229, 160, 60, 0.12);
+    --fail: #ef8a84;
+    --fail-soft: rgba(239, 138, 132, 0.1);
+    --shadow: 0 10px 34px -16px rgba(0, 0, 0, 0.5);
+  }
+
+  * { box-sizing: border-box; }
+  html { background: var(--paper); }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .display {
+    font-family: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  code, .mono {
+    font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.85em;
+  }
+  code {
+    background: var(--mist);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0.08em 0.35em;
+    white-space: nowrap;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* ── Masthead ─────────────────────────────── */
+  .masthead {
+    background: var(--chrome);
+    color: var(--chrome-text);
+    padding: 56px 24px 48px;
+    border-bottom: 3px solid var(--accent);
+  }
+  .masthead-inner { max-width: 900px; margin: 0 auto; }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--chrome-accent);
+    margin: 0 0 14px;
+  }
+  .masthead h1 {
+    margin: 0 0 18px;
+    font-size: clamp(34px, 6vw, 56px);
+    text-transform: uppercase;
+    color: var(--chrome-text);
+  }
+  .masthead .verdict {
+    max-width: 62ch;
+    margin: 0;
+    font-size: 17px;
+    color: var(--chrome-faint);
+  }
+  .masthead .verdict strong { color: var(--chrome-text); font-weight: 600; }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(238, 241, 245, 0.14);
+    font-size: 13px;
+    color: var(--chrome-faint);
+  }
+  .meta-row div span { display: block; }
+  .meta-row .k {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--chrome-accent);
+  }
+  .meta-row .v { color: var(--chrome-text); font-size: 13.5px; }
+
+  /* ── Page body ────────────────────────────── */
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+  section { margin-top: 56px; }
+  h2.section-title {
+    font-family: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", system-ui, sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 26px;
+    margin: 0 0 6px;
+    line-height: 1.1;
+  }
+  .section-sub { margin: 0 0 24px; color: var(--mute); font-size: 15px; max-width: 68ch; }
+
+  /* ── Scorecard ────────────────────────────── */
+  .scorecard {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+    gap: 10px;
+  }
+  .score {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 15px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+  .score .light {
+    flex: none;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .score.ok .light { background: var(--pass); }
+  .score.part .light { background: var(--warn); }
+  .score.miss .light { background: var(--fail); }
+  .score .label { font-size: 14px; font-weight: 600; line-height: 1.3; }
+  .score .note { font-size: 12.5px; color: var(--faint); line-height: 1.35; }
+  .score .tag {
+    margin-left: auto;
+    flex: none;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border-radius: 99px;
+  }
+  .score.ok .tag { color: var(--pass); background: var(--pass-soft); }
+  .score.part .tag { color: var(--warn); background: var(--warn-soft); }
+  .score.miss .tag { color: var(--fail); background: var(--fail-soft); }
+
+  /* ── Passing list ─────────────────────────── */
+  .pass-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .pass-list li {
+    padding-left: 26px;
+    position: relative;
+    max-width: 72ch;
+    font-size: 15px;
+    color: var(--mute);
+  }
+  .pass-list li::before {
+    content: "";
+    position: absolute;
+    left: 2px; top: 7px;
+    width: 9px; height: 5px;
+    border-left: 2.5px solid var(--pass);
+    border-bottom: 2.5px solid var(--pass);
+    transform: rotate(-45deg);
+  }
+  .pass-list strong { color: var(--ink); font-weight: 600; }
+
+  /* ── Findings ─────────────────────────────── */
+  .finding {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 24px 26px;
+    margin-bottom: 16px;
+  }
+  .finding-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .fnum {
+    font-family: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--accent);
+    flex: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .finding h3 { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.3; flex: 1 1 300px; }
+  .badges { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+  .badge.blocker { color: var(--fail); background: var(--fail-soft); }
+  .badge.high { color: var(--warn); background: var(--warn-soft); }
+  .badge.medium { color: var(--accent); background: var(--accent-soft); }
+  .badge.low { color: var(--faint); background: var(--mist); border: 1px solid var(--line); }
+  .badge.ref { color: var(--faint); background: transparent; border: 1px solid var(--line); font-weight: 600; }
+  .finding p { margin: 0 0 10px; color: var(--mute); font-size: 15px; max-width: 72ch; }
+  .finding p:last-child { margin-bottom: 0; }
+  .finding .fix {
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-size: 14.5px;
+    color: var(--ink);
+  }
+  .finding .fix b {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 11px;
+    color: var(--accent-strong);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ── Launch checklist ─────────────────────── */
+  .launch {
+    background: var(--chrome-2);
+    color: var(--chrome-text);
+    border-radius: 12px;
+    padding: 30px 32px;
+  }
+  .launch h2 {
+    font-family: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+    text-transform: uppercase;
+    font-size: 24px;
+    margin: 0 0 4px;
+    color: var(--chrome-text);
+  }
+  .launch .section-sub { color: var(--chrome-faint); }
+  .launch ol { margin: 0; padding-left: 22px; display: grid; gap: 10px; font-size: 15px; }
+  .launch li { color: var(--chrome-faint); }
+  .launch li strong { color: var(--chrome-text); font-weight: 600; }
+  .launch code { background: rgba(238,241,245,0.08); border-color: rgba(238,241,245,0.16); color: var(--chrome-accent); }
+  .launch a { color: var(--chrome-accent); }
+
+  /* ── Method / footer ──────────────────────── */
+  .method { font-size: 13.5px; color: var(--faint); max-width: 72ch; }
+  .method p { margin: 0 0 8px; }
+  footer.colophon {
+    margin-top: 64px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px;
+    color: var(--faint);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  .tablewrap { overflow-x: auto; }
+
+  @media (max-width: 560px) {
+    .masthead { padding: 40px 18px 36px; }
+    .wrap { padding: 0 18px 60px; }
+    .finding { padding: 20px 18px; }
+    .launch { padding: 24px 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">Outrider Digital · SEO &amp; CRO Design Guidelines Audit</p>
+    <h1 class="display">Smith Bros Mobile Detailing<br>Website Rebuild — Pre-Launch Audit</h1>
+    <p class="verdict"><strong>Verdict: strong build, ready for launch after three fixes.</strong> The mockup passes most of the guidelines checklist — semantics, page speed, mobile CRO, and metadata are in good shape across all ~190 pages. The gaps that matter: no structured data, no breadcrumbs, and every image is hotlinked from the client's old Webflow CDN.</p>
+    <div class="meta-row">
+      <div><span class="k">Site audited</span><span class="v mono">smith-bros-detailing.vercel.app</span></div>
+      <div><span class="k">Production domain</span><span class="v mono">www.sbmobiledetailing.com</span></div>
+      <div><span class="k">Date</span><span class="v">August 5, 2026</span></div>
+      <div><span class="k">Pages in sitemap</span><span class="v">~190</span></div>
+      <div><span class="k">Templates reviewed</span><span class="v">5 of 5 core</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section aria-labelledby="scorecard-title">
+    <h2 class="section-title" id="scorecard-title">Checklist Scorecard</h2>
+    <p class="section-sub">Each area of the agency's SEO &amp; CRO Web Design Guidelines, scored against the live deploy. Section numbers reference the guidelines document.</p>
+    <div class="scorecard">
+      <div class="score ok"><span class="light"></span><span><span class="label">Site architecture &amp; navigation</span><br><span class="note">§2 — clean hubs, 2–3 clicks deep, crawlable HTML nav</span></span><span class="tag">Pass</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Content &amp; heading hierarchy</span><br><span class="note">§3 — one H1/page, logical H2→H3, semantic regions</span></span><span class="tag">Pass</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Above-the-fold clarity</span><br><span class="note">§4 — specific headline, dominant CTA, trust signal</span></span><span class="tag">Pass</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Mobile-first design</span><br><span class="note">§5 — sticky CTA bar, tel/sms links, no h-scroll</span></span><span class="tag">Pass</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Page speed &amp; Core Web Vitals</span><br><span class="note">§6 — AVIF, lazy-load, facade video, no 3rd-party JS</span></span><span class="tag">Pass</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Calls to action</span><br><span class="note">§7 — clear primary/secondary split, repeated CTAs</span></span><span class="tag">Pass</span></div>
+      <div class="score part"><span class="light"></span><span><span class="label">Forms</span><br><span class="note">§9 — no on-site lead form; funnel is call/text/book app</span></span><span class="tag">Review</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Trust signals</span><br><span class="note">§10 — attributed reviews at decision points</span></span><span class="tag">Pass</span></div>
+      <div class="score part"><span class="light"></span><span><span class="label">Internal linking</span><br><span class="note">§12 — good contextual links, but no breadcrumbs</span></span><span class="tag">Partial</span></div>
+      <div class="score part"><span class="light"></span><span><span class="label">Images &amp; accessibility</span><br><span class="note">§13–14 — alt text solid; platform logos alt=""</span></span><span class="tag">Partial</span></div>
+      <div class="score miss"><span class="light"></span><span><span class="label">Structured data</span><br><span class="note">§15 — zero JSON-LD on any page</span></span><span class="tag">Miss</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Crawlability &amp; indexation</span><br><span class="note">§15 — SSG output, canonicals, sitemap, staging noindex</span></span><span class="tag">Pass</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="passing-title">
+    <h2 class="section-title" id="passing-title">What the Build Gets Right</h2>
+    <p class="section-sub">These took real discipline across a ~190-page static build, and they're done properly.</p>
+    <ul class="pass-list">
+      <li><strong>Architecture that preserves ranking equity.</strong> Clean hub structure — <code>/services/</code>, <code>/mobile-detailing/{city}</code>, <code>/mobile-ceramic-coating/{city}</code>, <code>/paint-protection-film/{city}</code>, <code>/cars/{make}</code> — with descriptive slugs matching the old site, all within 2–3 clicks of home.</li>
+      <li><strong>Semantic HTML throughout.</strong> One H1 per page, logical heading flow with no level-skips found, <code>header/nav/main/footer/section</code> regions, and a skip link on every page. FAQs use native <code>&lt;details&gt;</code>, so answers are in the HTML on load — crawlable and accessible.</li>
+      <li><strong>Metadata done right.</strong> Unique titles and meta descriptions per page, canonicals pointing at the production domain, Open Graph tags including og:image, and a sitemap driven by a <code>SITE_URL</code> environment variable so staging and production both resolve correctly.</li>
+      <li><strong>Performance as a design constraint.</strong> AVIF/WebP images, below-fold lazy-loading with the hero exempted and prioritized, self-hosted fonts, essentially zero third-party scripts, <code>prefers-reduced-motion</code> respected, and YouTube embedded as a thumbnail facade instead of a live iframe.</li>
+      <li><strong>Conversion path built for how people buy detailing.</strong> "Book Now" (external booking app) as the visually dominant primary, "Instant Quote" as secondary, a compact sticky mobile CTA bar, and tel:/sms: links throughout.</li>
+      <li><strong>Real, attributed proof at decision points.</strong> "1,000+ five-star reviews" and "since 1994" sit beside CTAs, and service pages carry named, located reviews ("Aleksey G., San Diego, CA") — exactly what §10 asks for.</li>
+      <li><strong>Correct staging hygiene.</strong> The mockup is noindexed with canonicals to production, so it can't compete with the client's live site while under review.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="findings-title">
+    <h2 class="section-title" id="findings-title">Findings — In Priority Order</h2>
+    <p class="section-sub">Numbered by recommended fix order. Items 1–3 are the ones that materially affect the launch.</p>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">1</span>
+        <h3>No structured data on any page</h3>
+        <div class="badges"><span class="badge high">High impact</span><span class="badge ref">§15</span></div>
+      </div>
+      <p>Zero JSON-LD across the site. For a local service business with this page inventory, the misses are significant: <code>LocalBusiness</code> (service area, hours, phone) site-wide, <code>Service</code> on service pages, <code>FAQPage</code> where the accordions already exist, and <code>BreadcrumbList</code> on sub-pages. The old Webflow site the client is migrating from is unlikely to have this either — it's an opportunity, not just parity.</p>
+      <div class="fix"><b>Fix</b> One Astro component per schema type, injected via the shared layouts — covers all ~190 pages in a single template change. Roughly a half-day of work.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">2</span>
+        <h3>No breadcrumbs despite a three-level, 190-page architecture</h3>
+        <div class="badges"><span class="badge high">High impact</span><span class="badge ref">§2 · §12</span></div>
+      </div>
+      <p>City pages sit three levels deep (e.g. <code>/mobile-ceramic-coating/carlsbad</code>) with no breadcrumb trail. Breadcrumbs strengthen internal hierarchy signals — which matters for carrying the old site's rankings over — and pair naturally with the <code>BreadcrumbList</code> schema from finding 1.</p>
+      <div class="fix"><b>Fix</b> A breadcrumb component in the Service/Location layouts, rendered as real links with schema markup. Same template pass as finding 1.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">3</span>
+        <h3>Every image is hotlinked from the client's old Webflow CDN</h3>
+        <div class="badges"><span class="badge blocker">Launch blocker</span></div>
+      </div>
+      <p>All photography loads from <code>cdn.prod.website-files.com</code> — the CDN of the client's current Webflow site. The moment they cancel their Webflow plan after migrating, every image on the new site breaks. This is fine for a mockup; it cannot ship this way.</p>
+      <div class="fix"><b>Fix</b> Download all referenced assets, self-host in <code>/public</code> (or our own CDN), and rewrite the URLs — scriptable in one pass. Must land before the client cancels Webflow.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">4</span>
+        <h3>Review-platform attribution lives only inside images</h3>
+        <div class="badges"><span class="badge medium">Medium</span><span class="badge ref">§3 · §13</span></div>
+      </div>
+      <p>The "1,000+ five-star reviews on [Google logo]" pattern puts the platform name only inside an image, and those logos carry <code>alt=""</code>. Screen readers and search engines see "five-star reviews on" and nothing else — the guidelines flag exactly this: meaningful text must not exist only in images.</p>
+      <div class="fix"><b>Fix</b> Give the Google/Yelp logos <code>alt="Google"</code> / <code>alt="Yelp"</code>. Minutes of work in two components.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">5</span>
+        <h3>Legacy copy carried over on the /cars/ pages</h3>
+        <div class="badges"><span class="badge medium">Medium</span><span class="badge ref">§3 · §4</span></div>
+      </div>
+      <p>The Tesla page H1 reads "Preserve the Timeless Elegance of Your Tesla with Our Mobile Detailing Services!" — long, salesy, keyword buried at the end. The newer templates get it right ("Mobile Ceramic Coating Services San Diego"); this looks like copy inherited from the old site.</p>
+      <div class="fix"><b>Fix</b> A copy sweep of the eight <code>/cars/</code> pages: benefit-led H1s with the make + service + location pattern up front.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">6</span>
+        <h3>No on-site lead form — "Instant Quote" lands on a form-less contact page</h3>
+        <div class="badges"><span class="badge low">Discuss with client</span><span class="badge ref">§9 · §17</span></div>
+      </div>
+      <p>The contact page offers chat, external booking, call, text, and email — but no form. That may be deliberate (the booking app is the funnel), but the guidelines favor a low-friction capture for visitors not ready to pick a time slot, and form submissions are far easier to attribute in GA4 than tel: taps.</p>
+      <div class="fix"><b>Fix</b> Propose a short 4-field quote form (name, phone, vehicle, service) on /contact as a test — evaluated on lead quality, not just volume, per §9.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">7</span>
+        <h3>Staging noindex is a manual launch step</h3>
+        <div class="badges"><span class="badge low">Launch checklist</span></div>
+      </div>
+      <p>The <code>noindex, nofollow</code> tag is hardcoded in <code>BaseLayout.astro</code> with a "remove at launch" comment. Correct for now — but it's a manual step that isn't mentioned in DEPLOY.md. If it ships, the site is invisible to Google.</p>
+      <div class="fix"><b>Fix</b> Add it to the launch checklist below and to DEPLOY.md, or gate it on the <code>SITE_URL</code> env var so production builds drop it automatically.</div>
+    </article>
+  </section>
+
+  <section aria-labelledby="launch-title">
+    <div class="launch">
+      <h2 id="launch-title">Launch Checklist</h2>
+      <p class="section-sub">In order. Items 1–3 before DNS cutover; 4–6 immediately after.</p>
+      <ol>
+        <li><strong>Migrate all images off the Webflow CDN</strong> and rewrite URLs (finding 3).</li>
+        <li><strong>Add structured data + breadcrumbs</strong> at the layout level (findings 1–2).</li>
+        <li><strong>Remove the noindex tag</strong> in <code>BaseLayout.astro</code> and confirm <code>SITE_URL</code> is set to production (finding 7).</li>
+        <li><strong>Verify Core Web Vitals</strong> with PageSpeed Insights once live on the production domain — lab numbers couldn't be pulled during this audit (API quota).</li>
+        <li><strong>Submit the sitemap</strong> in Search Console and confirm the old URLs resolve (structure was preserved, so redirects should be minimal).</li>
+        <li><strong>Fix alt text on platform logos</strong> and sweep the /cars/ copy (findings 4–5).</li>
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="method-title">
+    <h2 class="section-title" id="method-title">Method</h2>
+    <div class="method">
+      <p>Audited against the agency's "SEO and CRO Web Design Guidelines" on August 5, 2026. Raw HTML was fetched and inspected for five core templates on the live Vercel deploy: homepage, service page (<span class="mono">/services/ceramic-coating</span>), location page (<span class="mono">/mobile-detailing/la-jolla</span>), vehicle page (<span class="mono">/cars/tesla-expert-san-diego</span>), and contact — plus <span class="mono">robots.txt</span> and the sitemap index. Checks covered titles, meta descriptions, canonicals, heading hierarchy, semantic regions, structured data, image formats/alt/lazy-loading, forms, CTAs, fonts, and third-party requests. Lab Core Web Vitals were not measured (PageSpeed Insights anonymous quota exhausted); the performance score above reflects implementation signals in the markup.</p>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <span>Outrider Digital — internal pre-launch audit</span>
+    <span>Smith Bros Mobile Detailing · sbmobiledetailing.com</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
