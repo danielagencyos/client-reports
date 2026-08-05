@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ABS Staging — SEO Audit &amp; Migration Status</title>
+<style>
+  :root {
+    --paper: #ffffff;
+    --mist: #f5f6f8;
+    --card: #ffffff;
+    --ink: #0c0c0c;
+    --mute: #4a5568;
+    --faint: #616a78;
+    --line: rgba(11, 13, 17, 0.12);
+    --accent: #024ad9;
+    --accent-strong: #0335a6;
+    --accent-soft: rgba(2, 74, 217, 0.08);
+    --chrome: #0a0c10;
+    --chrome-2: #12151b;
+    --chrome-text: #eef1f5;
+    --chrome-faint: #9aa1ab;
+    --chrome-accent: #7fa7ff;
+    --pass: #1a7f4e;
+    --pass-soft: rgba(26, 127, 78, 0.1);
+    --warn: #b45309;
+    --warn-soft: rgba(180, 83, 9, 0.1);
+    --fail: #b3261e;
+    --fail-soft: rgba(179, 38, 30, 0.09);
+    --shadow: 0 10px 34px -16px rgba(10, 12, 16, 0.14);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0a0c10;
+      --mist: #12151b;
+      --card: #161a21;
+      --ink: #eef1f5;
+      --mute: #b6bdc7;
+      --faint: #9aa1ab;
+      --line: rgba(238, 241, 245, 0.14);
+      --accent: #7fa7ff;
+      --accent-strong: #a8c2ff;
+      --accent-soft: rgba(127, 167, 255, 0.1);
+      --chrome: #06070a;
+      --chrome-2: #0e1116;
+      --pass: #4cc38a;
+      --pass-soft: rgba(76, 195, 138, 0.12);
+      --warn: #e5a03c;
+      --warn-soft: rgba(229, 160, 60, 0.12);
+      --fail: #ef8a84;
+      --fail-soft: rgba(239, 138, 132, 0.1);
+      --shadow: 0 10px 34px -16px rgba(0, 0, 0, 0.5);
+    }
+  }
+  :root[data-theme="light"] {
+    --paper: #ffffff;
+    --mist: #f5f6f8;
+    --card: #ffffff;
+    --ink: #0c0c0c;
+    --mute: #4a5568;
+    --faint: #616a78;
+    --line: rgba(11, 13, 17, 0.12);
+    --accent: #024ad9;
+    --accent-strong: #0335a6;
+    --accent-soft: rgba(2, 74, 217, 0.08);
+    --chrome: #0a0c10;
+    --chrome-2: #12151b;
+    --pass: #1a7f4e;
+    --pass-soft: rgba(26, 127, 78, 0.1);
+    --warn: #b45309;
+    --warn-soft: rgba(180, 83, 9, 0.1);
+    --fail: #b3261e;
+    --fail-soft: rgba(179, 38, 30, 0.09);
+    --shadow: 0 10px 34px -16px rgba(10, 12, 16, 0.14);
+  }
+  :root[data-theme="dark"] {
+    --paper: #0a0c10;
+    --mist: #12151b;
+    --card: #161a21;
+    --ink: #eef1f5;
+    --mute: #b6bdc7;
+    --faint: #9aa1ab;
+    --line: rgba(238, 241, 245, 0.14);
+    --accent: #7fa7ff;
+    --accent-strong: #a8c2ff;
+    --accent-soft: rgba(127, 167, 255, 0.1);
+    --chrome: #06070a;
+    --chrome-2: #0e1116;
+    --pass: #4cc38a;
+    --pass-soft: rgba(76, 195, 138, 0.12);
+    --warn: #e5a03c;
+    --warn-soft: rgba(229, 160, 60, 0.12);
+    --fail: #ef8a84;
+    --fail-soft: rgba(239, 138, 132, 0.1);
+    --shadow: 0 10px 34px -16px rgba(0, 0, 0, 0.5);
+  }
+
+  * { box-sizing: border-box; }
+  html { background: var(--paper); }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .display {
+    font-family: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  code, .mono {
+    font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.85em;
+  }
+  code {
+    background: var(--mist);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0.08em 0.35em;
+    white-space: nowrap;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* ── Masthead ─────────────────────────────── */
+  .masthead {
+    background: var(--chrome);
+    color: var(--chrome-text);
+    padding: 56px 24px 48px;
+    border-bottom: 3px solid var(--accent);
+  }
+  .masthead-inner { max-width: 900px; margin: 0 auto; }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--chrome-accent);
+    margin: 0 0 14px;
+  }
+  .masthead h1 {
+    margin: 0 0 18px;
+    font-size: clamp(34px, 6vw, 56px);
+    text-transform: uppercase;
+    color: var(--chrome-text);
+  }
+  .masthead .verdict {
+    max-width: 62ch;
+    margin: 0;
+    font-size: 17px;
+    color: var(--chrome-faint);
+  }
+  .masthead .verdict strong { color: var(--chrome-text); font-weight: 600; }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(238, 241, 245, 0.14);
+    font-size: 13px;
+    color: var(--chrome-faint);
+  }
+  .meta-row div span { display: block; }
+  .meta-row .k {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--chrome-accent);
+  }
+  .meta-row .v { color: var(--chrome-text); font-size: 13.5px; }
+
+  /* ── Page body ────────────────────────────── */
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+  section { margin-top: 56px; }
+  h2.section-title {
+    font-family: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", system-ui, sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 26px;
+    margin: 0 0 6px;
+    line-height: 1.1;
+  }
+  .section-sub { margin: 0 0 24px; color: var(--mute); font-size: 15px; max-width: 68ch; }
+
+  /* ── Scorecard ────────────────────────────── */
+  .scorecard {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+    gap: 10px;
+  }
+  .score {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 15px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+  .score .light {
+    flex: none;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .score.ok .light { background: var(--pass); }
+  .score.part .light { background: var(--warn); }
+  .score.miss .light { background: var(--fail); }
+  .score .label { font-size: 14px; font-weight: 600; line-height: 1.3; }
+  .score .note { font-size: 12.5px; color: var(--faint); line-height: 1.35; }
+  .score .tag {
+    margin-left: auto;
+    flex: none;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border-radius: 99px;
+  }
+  .score.ok .tag { color: var(--pass); background: var(--pass-soft); }
+  .score.part .tag { color: var(--warn); background: var(--warn-soft); }
+  .score.miss .tag { color: var(--fail); background: var(--fail-soft); }
+
+  /* ── Passing list ─────────────────────────── */
+  .pass-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .pass-list li {
+    padding-left: 26px;
+    position: relative;
+    max-width: 72ch;
+    font-size: 15px;
+    color: var(--mute);
+  }
+  .pass-list li::before {
+    content: "";
+    position: absolute;
+    left: 2px; top: 7px;
+    width: 9px; height: 5px;
+    border-left: 2.5px solid var(--pass);
+    border-bottom: 2.5px solid var(--pass);
+    transform: rotate(-45deg);
+  }
+  .pass-list strong { color: var(--ink); font-weight: 600; }
+
+  /* ── Findings ─────────────────────────────── */
+  .finding {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 24px 26px;
+    margin-bottom: 16px;
+  }
+  .finding-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .fnum {
+    font-family: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--accent);
+    flex: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .finding h3 { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.3; flex: 1 1 300px; }
+  .badges { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+  .badge.blocker { color: var(--fail); background: var(--fail-soft); }
+  .badge.high { color: var(--warn); background: var(--warn-soft); }
+  .badge.medium { color: var(--accent); background: var(--accent-soft); }
+  .badge.low { color: var(--faint); background: var(--mist); border: 1px solid var(--line); }
+  .badge.ref { color: var(--faint); background: transparent; border: 1px solid var(--line); font-weight: 600; }
+  .finding p { margin: 0 0 10px; color: var(--mute); font-size: 15px; max-width: 72ch; }
+  .finding p:last-child { margin-bottom: 0; }
+  .finding .fix {
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-size: 14.5px;
+    color: var(--ink);
+  }
+  .finding .fix b {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 11px;
+    color: var(--accent-strong);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ── Launch checklist ─────────────────────── */
+  .launch {
+    background: var(--chrome-2);
+    color: var(--chrome-text);
+    border-radius: 12px;
+    padding: 30px 32px;
+  }
+  .launch h2 {
+    font-family: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+    text-transform: uppercase;
+    font-size: 24px;
+    margin: 0 0 4px;
+    color: var(--chrome-text);
+  }
+  .launch .section-sub { color: var(--chrome-faint); }
+  .launch ol { margin: 0; padding-left: 22px; display: grid; gap: 10px; font-size: 15px; }
+  .launch li { color: var(--chrome-faint); }
+  .launch li strong { color: var(--chrome-text); font-weight: 600; }
+  .launch code { background: rgba(238,241,245,0.08); border-color: rgba(238,241,245,0.16); color: var(--chrome-accent); }
+  .launch a { color: var(--chrome-accent); }
+
+  /* ── Method / footer ──────────────────────── */
+  .method { font-size: 13.5px; color: var(--faint); max-width: 72ch; }
+  .method p { margin: 0 0 8px; }
+  footer.colophon {
+    margin-top: 64px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px;
+    color: var(--faint);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  .tablewrap { overflow-x: auto; }
+
+  @media (max-width: 560px) {
+    .masthead { padding: 40px 18px 36px; }
+    .wrap { padding: 0 18px 60px; }
+    .finding { padding: 20px 18px; }
+    .launch { padding: 24px 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">Outrider Digital · SEO Audit &amp; Migration Check</p>
+    <h1 class="display">ABS Commercial Cleaning<br>Staging Site — SEO Audit &amp; Migration Status</h1>
+    <p class="verdict"><strong>Verdict: not ready — this is an early prototype, not a migration.</strong> The staging build has 9 routes against the live site's 66 indexed pages: only the homepage and privacy policy carry over, 64 pages return 404, and the SEO layer (unique metadata, canonicals, schema, sitemap, robots.txt) hasn't been started. Cutting over in this state would forfeit nearly all of the rankings the live site has been building.</p>
+    <div class="meta-row">
+      <div><span class="k">Staging</span><span class="v mono">abs-commercial-cleaning.vercel.app</span></div>
+      <div><span class="k">Live site</span><span class="v mono">abscleaning.com</span></div>
+      <div><span class="k">Date</span><span class="v">August 5, 2026</span></div>
+      <div><span class="k">Live URLs checked</span><span class="v">66 pages</span></div>
+      <div><span class="k">Found on staging</span><span class="v">2 (3%)</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section aria-labelledby="migration-title">
+    <h2 class="section-title" id="migration-title">Migration Completeness</h2>
+    <p class="section-sub">Every URL in the live site's sitemaps was requested on staging (following redirects). Only the homepage and privacy policy resolve. The five city pages exist in rebuilt form but at different URLs, which does not count as migrated — without matching URLs or redirects their rankings reset to zero.</p>
+    <div class="scorecard">
+      <div class="score ok"><span class="light"></span><span><span class="label">Homepage</span><br><span class="note">1 of 1 — rebuilt and live on staging</span></span><span class="tag">Done</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Privacy policy</span><br><span class="note">1 of 1 — resolves on staging</span></span><span class="tag">Done</span></div>
+      <div class="score part"><span class="light"></span><span><span class="label">Location pages</span><br><span class="note">5 city pages rebuilt, but at <span class="mono">/Locations/{city}</span> instead of <span class="mono">/commercial-cleaning-locations-texas/{city}/</span>; hub page missing</span></span><span class="tag">Moved</span></div>
+      <div class="score miss"><span class="light"></span><span><span class="label">Service pages</span><br><span class="note">0 of 21 — hub + 20 city-service pages all 404</span></span><span class="tag">Missing</span></div>
+      <div class="score miss"><span class="light"></span><span><span class="label">Facility pages</span><br><span class="note">0 of 9 — hub + 8 facility-type pages all 404</span></span><span class="tag">Missing</span></div>
+      <div class="score miss"><span class="light"></span><span><span class="label">Blog</span><br><span class="note">0 of 23 — hub + 22 articles all 404</span></span><span class="tag">Missing</span></div>
+      <div class="score miss"><span class="light"></span><span><span class="label">Conversion pages</span><br><span class="note">Quote and contact pages 404; staging relies on an embedded form only</span></span><span class="tag">Missing</span></div>
+      <div class="score miss"><span class="light"></span><span><span class="label">Other pages</span><br><span class="note">Careers, industries-we-serve, Austin company page — all 404</span></span><span class="tag">Missing</span></div>
+    </div>
+    <p class="section-sub" style="margin-top:18px">Context worth confirming with the team: the live abscleaning.com is itself the recently launched 50-page WordPress build (audited separately — it scores well, with schema, breadcrumbs, and unique metadata throughout). It is not clear what role this Next.js staging build is meant to play; if it is intended to replace the live site, it is currently a step backwards on every SEO dimension. If it is an abandoned prototype, it should be taken down or password-protected to avoid confusion.</p>
+  </section>
+
+  <section aria-labelledby="scorecard-title">
+    <h2 class="section-title" id="scorecard-title">Staging SEO Scorecard</h2>
+    <p class="section-sub">The SEO-relevant areas of the agency's SEO &amp; CRO Web Design Guidelines, scored against the staging deploy as it stands today.</p>
+    <div class="scorecard">
+      <div class="score miss"><span class="light"></span><span><span class="label">Site architecture</span><br><span class="note">§2 — 9 routes; no service, facility, or blog structure</span></span><span class="tag">Miss</span></div>
+      <div class="score miss"><span class="light"></span><span><span class="label">URL conventions</span><br><span class="note">§2 — capitalized routes (<span class="mono">/About</span>, <span class="mono">/Services</span>, <span class="mono">/Locations/…</span>)</span></span><span class="tag">Miss</span></div>
+      <div class="score miss"><span class="light"></span><span><span class="label">Titles &amp; meta descriptions</span><br><span class="note">§15 — one global title/description reused on nearly every page</span></span><span class="tag">Miss</span></div>
+      <div class="score miss"><span class="light"></span><span><span class="label">Canonicals &amp; social meta</span><br><span class="note">§15 — no canonical tags, no Open Graph, no Twitter cards</span></span><span class="tag">Miss</span></div>
+      <div class="score miss"><span class="light"></span><span><span class="label">Structured data</span><br><span class="note">§15 — zero JSON-LD (live site has LocalBusiness, FAQ, Service, Breadcrumb)</span></span><span class="tag">Miss</span></div>
+      <div class="score miss"><span class="light"></span><span><span class="label">Sitemap &amp; robots.txt</span><br><span class="note">§15 — both return 404</span></span><span class="tag">Miss</span></div>
+      <div class="score miss"><span class="light"></span><span><span class="label">Image SEO &amp; alt text</span><br><span class="note">§13 — 43 of 58 homepage images have missing or empty alt</span></span><span class="tag">Miss</span></div>
+      <div class="score part"><span class="light"></span><span><span class="label">Heading hierarchy</span><br><span class="note">§3 — one H1 per page, but <span class="mono">/Services</span> carries a placeholder carpet-cleaning H1 and thin city H1s ("Austin")</span></span><span class="tag">Partial</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Rendering &amp; assets</span><br><span class="note">§15 · §6 — server-rendered Next.js, self-hosted images and fonts</span></span><span class="tag">Pass</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Staging hygiene</span><br><span class="note">noindex, nofollow is set — correct while under construction</span></span><span class="tag">Pass</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="findings-title">
+    <h2 class="section-title" id="findings-title">Findings — In Priority Order</h2>
+    <p class="section-sub">Finding 1 is a decision, not a task — everything else depends on it.</p>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">1</span>
+        <h3>63 of the live site's 66 pages don't exist on staging</h3>
+        <div class="badges"><span class="badge blocker">Launch blocker</span></div>
+      </div>
+      <p>The live site's rankings live on its 21 service pages, 9 facility pages, 6 location pages, and 23 blog URLs — the pages the July report shows gaining impressions. On staging all of them 404. Before any further build-out, the team needs to decide what this staging site is for: if it replaces the live WordPress site, the full page inventory must be rebuilt or the cutover will erase the SEO progress the client is paying for; if it's a dead prototype, retire it.</p>
+      <div class="fix"><b>Fix</b> Confirm intent with the team. If proceeding: port all 63 missing pages at their exact live URLs (or ship a complete 301 map), then re-run this audit.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">2</span>
+        <h3>City pages moved to new URLs with no redirects</h3>
+        <div class="badges"><span class="badge high">High impact</span><span class="badge ref">§2</span></div>
+      </div>
+      <p>The five rebuilt city pages live at <code>/Locations/austin</code> etc., while the live, ranking URLs are <code>/commercial-cleaning-locations-texas/austin/</code>. A changed URL without a 301 is a new page starting from zero. The new paths are also capitalized — <code>/About</code>, <code>/Services</code>, <code>/Locations</code> — inviting case-sensitivity duplicates and breaking the lowercase convention of every existing backlink.</p>
+      <div class="fix"><b>Fix</b> Either keep the live URL structure (preferred — it's already ranking) or lowercase the new routes and ship 301s from every legacy URL.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">3</span>
+        <h3>No page-level metadata: one title and description shared site-wide</h3>
+        <div class="badges"><span class="badge high">High impact</span><span class="badge ref">§15</span></div>
+      </div>
+      <p>Home, About, and Services all render the identical title ("ABS Commercial Cleaning") and the same meta description; only the Austin page has its own title. There are no canonical tags, no Open Graph or Twitter markup, and no structured data — the live site has all of these, so as it stands the rebuild would ship with less SEO than the site it replaces.</p>
+      <div class="fix"><b>Fix</b> Wire Next.js <code>generateMetadata</code> per route: unique title/description, canonical, and OG tags — then port the live site's LocalBusiness, Service, FAQPage, and BreadcrumbList schema.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">4</span>
+        <h3>No sitemap.xml and no robots.txt</h3>
+        <div class="badges"><span class="badge high">High impact</span><span class="badge ref">§15</span></div>
+      </div>
+      <p>Both return 404 on staging. The live site serves a proper sitemap index (page, post, category, local sitemaps) that Search Console depends on — launching without one means slower discovery of every migrated URL at exactly the moment fast recrawling matters most.</p>
+      <div class="fix"><b>Fix</b> Add Next.js <code>sitemap.ts</code> and <code>robots.ts</code>. Trivial once routes exist — but it must be on the checklist.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">5</span>
+        <h3>Most images have missing or empty alt text</h3>
+        <div class="badges"><span class="badge medium">Medium</span><span class="badge ref">§13 · §14</span></div>
+      </div>
+      <p>43 of 58 images on the homepage, 63 of 69 on the Services page, and 25 of 29 on the Austin page have no usable alt attribute. The live site's images are properly attributed, so this too is a regression.</p>
+      <div class="fix"><b>Fix</b> Alt-text pass across all components: descriptive alt for photos, <code>alt=""</code> only for genuinely decorative shapes.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">6</span>
+        <h3>Placeholder wiring: /Services renders a single carpet-cleaning page</h3>
+        <div class="badges"><span class="badge medium">Medium</span></div>
+      </div>
+      <p>The main nav's "Services" link lands on a page whose H1 is "Commercial Carpet Cleaning in San Antonio" — a single-service template parked at the hub URL. City pages also carry thin H1s (just "Austin"). Template scaffolding is fine at this stage, but it confirms the build is early-prototype, not review-ready.</p>
+      <div class="fix"><b>Fix</b> Build the real services hub listing all nine services, and give city pages descriptive H1s ("Commercial Cleaning Services in Austin, TX") — the live site's versions are the reference.</div>
+    </article>
+  </section>
+
+  <section aria-labelledby="launch-title">
+    <div class="launch">
+      <h2 id="launch-title">Path to Launch-Ready</h2>
+      <p class="section-sub">Gated: don't start item 2 until item 1 is answered.</p>
+      <ol>
+        <li><strong>Decide the staging site's role</strong> — replacement for the live WordPress site, or retired prototype (finding 1).</li>
+        <li><strong>Lock the URL map to the live site's structure</strong> — lowercase, matching paths, plus a 301 map for anything that must change (finding 2).</li>
+        <li><strong>Port the full page inventory</strong> — 21 service, 9 facility, 6 location, 23 blog, and 5 standalone pages (finding 1).</li>
+        <li><strong>Implement per-page metadata, canonicals, OG, and schema</strong> to at least live-site parity (finding 3).</li>
+        <li><strong>Add sitemap.xml and robots.txt</strong>, and fix the alt-text and placeholder-content issues (findings 4–6).</li>
+        <li><strong>Re-run this audit</strong>, then plan cutover with Search Console monitoring from day one.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="method-title">
+    <h2 class="section-title" id="method-title">Method</h2>
+    <div class="method">
+      <p>Audited August 5, 2026 against the SEO sections of the agency's "SEO and CRO Web Design Guidelines." Migration completeness: all 68 URLs from the live site's sitemap index (page, post, category, local — 66 pages plus two non-page assets) were requested on staging following redirects; staging serves 308 trailing-slash redirects, and final status codes were recorded. Staging inspection covered the four reachable templates (home, About, Services, Locations/austin): titles, descriptions, canonicals, headings, structured data, Open Graph, image alt coverage, robots.txt, and sitemap presence. The live site's own audit (run the same day) serves as the parity baseline.</p>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <span>Outrider Digital — internal audit</span>
+    <span>ABS Commercial Cleaning · abscleaning.com</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
