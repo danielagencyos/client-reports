@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Smith Bros Mockup — SEO Audit</title>
+<style>
+  :root {
+    --paper: #ffffff;
+    --mist: #f5f6f8;
+    --card: #ffffff;
+    --ink: #0c0c0c;
+    --mute: #4a5568;
+    --faint: #616a78;
+    --line: rgba(11, 13, 17, 0.12);
+    --accent: #024ad9;
+    --accent-strong: #0335a6;
+    --accent-soft: rgba(2, 74, 217, 0.08);
+    --chrome: #0a0c10;
+    --chrome-2: #12151b;
+    --chrome-text: #eef1f5;
+    --chrome-faint: #9aa1ab;
+    --chrome-accent: #7fa7ff;
+    --pass: #1a7f4e;
+    --pass-soft: rgba(26, 127, 78, 0.1);
+    --warn: #b45309;
+    --warn-soft: rgba(180, 83, 9, 0.1);
+    --fail: #b3261e;
+    --fail-soft: rgba(179, 38, 30, 0.09);
+    --shadow: 0 10px 34px -16px rgba(10, 12, 16, 0.14);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0a0c10;
+      --mist: #12151b;
+      --card: #161a21;
+      --ink: #eef1f5;
+      --mute: #b6bdc7;
+      --faint: #9aa1ab;
+      --line: rgba(238, 241, 245, 0.14);
+      --accent: #7fa7ff;
+      --accent-strong: #a8c2ff;
+      --accent-soft: rgba(127, 167, 255, 0.1);
+      --chrome: #06070a;
+      --chrome-2: #0e1116;
+      --pass: #4cc38a;
+      --pass-soft: rgba(76, 195, 138, 0.12);
+      --warn: #e5a03c;
+      --warn-soft: rgba(229, 160, 60, 0.12);
+      --fail: #ef8a84;
+      --fail-soft: rgba(239, 138, 132, 0.1);
+      --shadow: 0 10px 34px -16px rgba(0, 0, 0, 0.5);
+    }
+  }
+  :root[data-theme="light"] {
+    --paper: #ffffff;
+    --mist: #f5f6f8;
+    --card: #ffffff;
+    --ink: #0c0c0c;
+    --mute: #4a5568;
+    --faint: #616a78;
+    --line: rgba(11, 13, 17, 0.12);
+    --accent: #024ad9;
+    --accent-strong: #0335a6;
+    --accent-soft: rgba(2, 74, 217, 0.08);
+    --chrome: #0a0c10;
+    --chrome-2: #12151b;
+    --pass: #1a7f4e;
+    --pass-soft: rgba(26, 127, 78, 0.1);
+    --warn: #b45309;
+    --warn-soft: rgba(180, 83, 9, 0.1);
+    --fail: #b3261e;
+    --fail-soft: rgba(179, 38, 30, 0.09);
+    --shadow: 0 10px 34px -16px rgba(10, 12, 16, 0.14);
+  }
+  :root[data-theme="dark"] {
+    --paper: #0a0c10;
+    --mist: #12151b;
+    --card: #161a21;
+    --ink: #eef1f5;
+    --mute: #b6bdc7;
+    --faint: #9aa1ab;
+    --line: rgba(238, 241, 245, 0.14);
+    --accent: #7fa7ff;
+    --accent-strong: #a8c2ff;
+    --accent-soft: rgba(127, 167, 255, 0.1);
+    --chrome: #06070a;
+    --chrome-2: #0e1116;
+    --pass: #4cc38a;
+    --pass-soft: rgba(76, 195, 138, 0.12);
+    --warn: #e5a03c;
+    --warn-soft: rgba(229, 160, 60, 0.12);
+    --fail: #ef8a84;
+    --fail-soft: rgba(239, 138, 132, 0.1);
+    --shadow: 0 10px 34px -16px rgba(0, 0, 0, 0.5);
+  }
+
+  * { box-sizing: border-box; }
+  html { background: var(--paper); }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .display {
+    font-family: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", system-ui, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  code, .mono {
+    font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.85em;
+  }
+  code {
+    background: var(--mist);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 0.08em 0.35em;
+    white-space: nowrap;
+  }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* ── Masthead ─────────────────────────────── */
+  .masthead {
+    background: var(--chrome);
+    color: var(--chrome-text);
+    padding: 56px 24px 48px;
+    border-bottom: 3px solid var(--accent);
+  }
+  .masthead-inner { max-width: 900px; margin: 0 auto; }
+  .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--chrome-accent);
+    margin: 0 0 14px;
+  }
+  .masthead h1 {
+    margin: 0 0 18px;
+    font-size: clamp(34px, 6vw, 56px);
+    text-transform: uppercase;
+    color: var(--chrome-text);
+  }
+  .masthead .verdict {
+    max-width: 62ch;
+    margin: 0;
+    font-size: 17px;
+    color: var(--chrome-faint);
+  }
+  .masthead .verdict strong { color: var(--chrome-text); font-weight: 600; }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(238, 241, 245, 0.14);
+    font-size: 13px;
+    color: var(--chrome-faint);
+  }
+  .meta-row div span { display: block; }
+  .meta-row .k {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--chrome-accent);
+  }
+  .meta-row .v { color: var(--chrome-text); font-size: 13.5px; }
+
+  /* ── Page body ────────────────────────────── */
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+  section { margin-top: 56px; }
+  h2.section-title {
+    font-family: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", system-ui, sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 26px;
+    margin: 0 0 6px;
+    line-height: 1.1;
+  }
+  .section-sub { margin: 0 0 24px; color: var(--mute); font-size: 15px; max-width: 68ch; }
+
+  /* ── Scorecard ────────────────────────────── */
+  .scorecard {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+    gap: 10px;
+  }
+  .score {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 15px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+  }
+  .score .light {
+    flex: none;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+  }
+  .score.ok .light { background: var(--pass); }
+  .score.part .light { background: var(--warn); }
+  .score.miss .light { background: var(--fail); }
+  .score .label { font-size: 14px; font-weight: 600; line-height: 1.3; }
+  .score .note { font-size: 12.5px; color: var(--faint); line-height: 1.35; }
+  .score .tag {
+    margin-left: auto;
+    flex: none;
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 3px 8px;
+    border-radius: 99px;
+  }
+  .score.ok .tag { color: var(--pass); background: var(--pass-soft); }
+  .score.part .tag { color: var(--warn); background: var(--warn-soft); }
+  .score.miss .tag { color: var(--fail); background: var(--fail-soft); }
+
+  /* ── Passing list ─────────────────────────── */
+  .pass-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .pass-list li {
+    padding-left: 26px;
+    position: relative;
+    max-width: 72ch;
+    font-size: 15px;
+    color: var(--mute);
+  }
+  .pass-list li::before {
+    content: "";
+    position: absolute;
+    left: 2px; top: 7px;
+    width: 9px; height: 5px;
+    border-left: 2.5px solid var(--pass);
+    border-bottom: 2.5px solid var(--pass);
+    transform: rotate(-45deg);
+  }
+  .pass-list strong { color: var(--ink); font-weight: 600; }
+
+  /* ── Findings ─────────────────────────────── */
+  .finding {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 24px 26px;
+    margin-bottom: 16px;
+  }
+  .finding-head {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .fnum {
+    font-family: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--accent);
+    flex: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .finding h3 { margin: 0; font-size: 18px; font-weight: 700; line-height: 1.3; flex: 1 1 300px; }
+  .badges { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+  .badge.blocker { color: var(--fail); background: var(--fail-soft); }
+  .badge.high { color: var(--warn); background: var(--warn-soft); }
+  .badge.medium { color: var(--accent); background: var(--accent-soft); }
+  .badge.low { color: var(--faint); background: var(--mist); border: 1px solid var(--line); }
+  .badge.ref { color: var(--faint); background: transparent; border: 1px solid var(--line); font-weight: 600; }
+  .finding p { margin: 0 0 10px; color: var(--mute); font-size: 15px; max-width: 72ch; }
+  .finding p:last-child { margin-bottom: 0; }
+  .finding .fix {
+    margin-top: 14px;
+    padding: 12px 16px;
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-size: 14.5px;
+    color: var(--ink);
+  }
+  .finding .fix b {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 11px;
+    color: var(--accent-strong);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ── Launch checklist ─────────────────────── */
+  .launch {
+    background: var(--chrome-2);
+    color: var(--chrome-text);
+    border-radius: 12px;
+    padding: 30px 32px;
+  }
+  .launch h2 {
+    font-family: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+    text-transform: uppercase;
+    font-size: 24px;
+    margin: 0 0 4px;
+    color: var(--chrome-text);
+  }
+  .launch .section-sub { color: var(--chrome-faint); }
+  .launch ol { margin: 0; padding-left: 22px; display: grid; gap: 10px; font-size: 15px; }
+  .launch li { color: var(--chrome-faint); }
+  .launch li strong { color: var(--chrome-text); font-weight: 600; }
+  .launch code { background: rgba(238,241,245,0.08); border-color: rgba(238,241,245,0.16); color: var(--chrome-accent); }
+  .launch a { color: var(--chrome-accent); }
+
+  /* ── Method / footer ──────────────────────── */
+  .method { font-size: 13.5px; color: var(--faint); max-width: 72ch; }
+  .method p { margin: 0 0 8px; }
+  footer.colophon {
+    margin-top: 64px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px;
+    color: var(--faint);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  .tablewrap { overflow-x: auto; }
+
+  @media (max-width: 560px) {
+    .masthead { padding: 40px 18px 36px; }
+    .wrap { padding: 0 18px 60px; }
+    .finding { padding: 20px 18px; }
+    .launch { padding: 24px 20px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">Outrider Digital · SEO Audit</p>
+    <h1 class="display">Smith Bros Mobile Detailing<br>Website Rebuild — SEO Pre-Launch Audit</h1>
+    <p class="verdict"><strong>Verdict: technically sound, with two template-level gaps and one launch blocker.</strong> Crawlability, metadata, semantics, and content uniqueness are done properly across all 184 pages in the sitemap. What's missing on the SEO side: structured data, breadcrumbs, and self-hosted images — plus slug inconsistencies worth cleaning up before the URL map is locked in at launch.</p>
+    <div class="meta-row">
+      <div><span class="k">Site audited</span><span class="v mono">smith-bros-detailing.vercel.app</span></div>
+      <div><span class="k">Production domain</span><span class="v mono">www.sbmobiledetailing.com</span></div>
+      <div><span class="k">Date</span><span class="v">August 5, 2026</span></div>
+      <div><span class="k">URLs in sitemap</span><span class="v">184</span></div>
+      <div><span class="k">Templates inspected</span><span class="v">7</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section aria-labelledby="scorecard-title">
+    <h2 class="section-title" id="scorecard-title">SEO Scorecard</h2>
+    <p class="section-sub">The SEO-relevant areas of the agency's SEO &amp; CRO Web Design Guidelines, scored against the live deploy. Section numbers reference the guidelines document. The conversion-side assessment lives in the companion <a href="../2026-08-seo-cro/">SEO &amp; CRO audit</a>.</p>
+    <div class="scorecard">
+      <div class="score ok"><span class="light"></span><span><span class="label">Site architecture</span><br><span class="note">§2 — clean service/location/vehicle hubs, 2–3 clicks deep</span></span><span class="tag">Pass</span></div>
+      <div class="score part"><span class="light"></span><span><span class="label">URL &amp; slug consistency</span><br><span class="note">§2 — descriptive URLs, but city slugs vary across hubs</span></span><span class="tag">Partial</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Heading &amp; content hierarchy</span><br><span class="note">§3 — one H1/page, logical H2→H3, semantic regions</span></span><span class="tag">Pass</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Titles &amp; meta descriptions</span><br><span class="note">§15 — unique per page, lengths in range on all sampled</span></span><span class="tag">Pass</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Canonicals, robots &amp; sitemap</span><br><span class="note">§15 — prod canonicals, valid sitemap, correct staging noindex</span></span><span class="tag">Pass</span></div>
+      <div class="score miss"><span class="light"></span><span><span class="label">Structured data</span><br><span class="note">§15 — zero JSON-LD on any page</span></span><span class="tag">Miss</span></div>
+      <div class="score part"><span class="light"></span><span><span class="label">Internal linking</span><br><span class="note">§12 — good contextual modules, but no breadcrumbs</span></span><span class="tag">Partial</span></div>
+      <div class="score part"><span class="light"></span><span><span class="label">Image SEO</span><br><span class="note">§13 — alt text solid; filenames are Webflow CDN hashes</span></span><span class="tag">Partial</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Performance signals</span><br><span class="note">§6 — AVIF/WebP, lazy-load, prioritized hero, no 3rd-party JS</span></span><span class="tag">Pass</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Local content uniqueness</span><br><span class="note">§11 — city pages ~48% similar with city neutralized: real content, not doorways</span></span><span class="tag">Pass</span></div>
+      <div class="score ok"><span class="light"></span><span><span class="label">Crawlable rendering</span><br><span class="note">§15 — static output, HTML nav, FAQs present in source</span></span><span class="tag">Pass</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="passing-title">
+    <h2 class="section-title" id="passing-title">SEO Strengths</h2>
+    <ul class="pass-list">
+      <li><strong>Ranking equity is protected by design.</strong> The rebuild preserves the old site's URL structure — <code>/services/</code>, <code>/mobile-detailing/{city}</code>, <code>/mobile-ceramic-coating/{city}</code>, <code>/paint-protection-film/{city}</code>, <code>/cars/{make}</code> — so existing links and rankings carry over with minimal redirects.</li>
+      <li><strong>No doorway-page risk on the 141 city pages.</strong> Sampled ceramic-coating pages for Carlsbad and Encinitas are only ~48% similar even after neutralizing the city name — each page carries genuinely distinct copy, headings, and local references, which is the hard part of local SEO at this scale.</li>
+      <li><strong>Metadata is unique and correctly sized.</strong> Every sampled page has its own title (37–69 characters) and meta description (79–163 characters), a production-domain canonical, and Open Graph tags including og:image.</li>
+      <li><strong>Fully crawlable static output.</strong> Astro SSG, real HTML navigation, FAQs in native <code>&lt;details&gt;</code> elements present in source, valid XML sitemap with 184 URLs, sane robots.txt.</li>
+      <li><strong>Performance signals favor good Core Web Vitals.</strong> AVIF/WebP images, below-fold lazy-loading with the hero exempted and prioritized, self-hosted fonts, essentially zero third-party scripts.</li>
+      <li><strong>Correct staging hygiene.</strong> The mockup is noindexed with canonicals to production, so it can't be indexed against the client's live site during review.</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="findings-title">
+    <h2 class="section-title" id="findings-title">Findings — In Priority Order</h2>
+    <p class="section-sub">Numbered by recommended fix order. Items 1–3 should land before DNS cutover.</p>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">1</span>
+        <h3>No structured data on any page</h3>
+        <div class="badges"><span class="badge high">High impact</span><span class="badge ref">§15</span></div>
+      </div>
+      <p>Zero JSON-LD across 184 pages. For a local service business the misses are the most valuable schema types there are: <code>LocalBusiness</code> (service area, hours, phone) site-wide, <code>Service</code> on service pages, <code>FAQPage</code> where the accordions already exist, and <code>BreadcrumbList</code> on sub-pages. The old Webflow site is unlikely to have this either — it's a net gain over the current site, not just parity.</p>
+      <div class="fix"><b>Fix</b> One Astro component per schema type, injected via the shared layouts — a single template change covers every page. Roughly a half-day of work.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">2</span>
+        <h3>No breadcrumbs despite a three-level, 184-URL architecture</h3>
+        <div class="badges"><span class="badge high">High impact</span><span class="badge ref">§2 · §12</span></div>
+      </div>
+      <p>City pages sit three levels deep (e.g. <code>/mobile-ceramic-coating/carlsbad</code>) with no breadcrumb trail. Breadcrumbs strengthen the internal hierarchy signals that help the migrated rankings settle, distribute link equity to the hub pages, and pair naturally with the <code>BreadcrumbList</code> schema from finding 1.</p>
+      <div class="fix"><b>Fix</b> A breadcrumb component in the Service/Location layouts, rendered as real links with schema markup. Same template pass as finding 1.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">3</span>
+        <h3>Every image is hotlinked from the client's old Webflow CDN</h3>
+        <div class="badges"><span class="badge blocker">Launch blocker</span><span class="badge ref">§13</span></div>
+      </div>
+      <p>All photography loads from <code>cdn.prod.website-files.com</code> — the CDN of the site being replaced. When the client cancels Webflow after migrating, every image breaks. It also costs image SEO: filenames are Webflow hashes (<span class="mono">697e25c385b2eb…</span>) rather than the descriptive names §13 calls for, and hotlinked assets never enter our control for resizing or format decisions.</p>
+      <div class="fix"><b>Fix</b> Download all assets, rename descriptively (<span class="mono">ceramic-coating-tesla-san-diego.avif</span>), self-host, and rewrite URLs — scriptable in one pass. Must land before the client cancels Webflow.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">4</span>
+        <h3>City slugs are inconsistent across service hubs</h3>
+        <div class="badges"><span class="badge medium">Medium</span><span class="badge ref">§2</span></div>
+      </div>
+      <p>The same city gets different slugs depending on the hub: <code>coronado</code> vs <code>coronado-ca</code>, <code>fallbrook</code> vs <code>fallbrook-ca</code>, <code>vista</code> vs <code>vista-ca</code>, and <code>mira-mar</code> vs <code>miramar</code> (the latter is also a misspelling — the San Diego neighborhood is Miramar). If these mirror the old site's URLs, keep them for launch and note them; if any are new, this is the last cheap moment to standardize — after launch each rename costs a redirect.</p>
+      <div class="fix"><b>Fix</b> Diff each variant against the old site's sitemap. Match legacy slugs exactly where they exist; standardize (no <code>-ca</code> suffix, correct spellings) where the page is new.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">5</span>
+        <h3>Paint protection film hub covers 10 fewer cities than the other services</h3>
+        <div class="badges"><span class="badge medium">Opportunity</span><span class="badge ref">§2 · §11</span></div>
+      </div>
+      <p>Mobile detailing, ceramic coating, and window tinting each cover 37–38 cities; PPF covers 28. Missing from PPF: Fallbrook, Lakeside, Maderas, Ramona, Rancho Peñasquitos, Rancho Santa Fe, San Marcos, Santa Luz, Santee, Tierrasanta, and Valley Center. Some of those (Rancho Santa Fe, Santa Luz) are exactly the high-value neighborhoods where PPF demand concentrates.</p>
+      <div class="fix"><b>Fix</b> Confirm whether the gap is intentional (service range) — if not, add the missing PPF city pages with the same unique-content standard as the existing ones, highest-value neighborhoods first.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">6</span>
+        <h3>Legacy copy carried over on the /cars/ pages</h3>
+        <div class="badges"><span class="badge medium">Medium</span><span class="badge ref">§3 · §4</span></div>
+      </div>
+      <p>The Tesla page H1 reads "Preserve the Timeless Elegance of Your Tesla with Our Mobile Detailing Services!" — keyword buried at the end, and its meta description is thin at 79 characters. The newer templates get this right ("Mobile Ceramic Coating Services San Diego"); this looks like copy inherited from the old site.</p>
+      <div class="fix"><b>Fix</b> A copy sweep of the eight <code>/cars/</code> pages: make + service + location up front in the H1, and descriptions expanded toward 120–160 characters.</div>
+    </article>
+
+    <article class="finding">
+      <div class="finding-head">
+        <span class="fnum">7</span>
+        <h3>Staging noindex is a manual launch step</h3>
+        <div class="badges"><span class="badge low">Launch checklist</span></div>
+      </div>
+      <p>The <code>noindex, nofollow</code> tag is hardcoded in <code>BaseLayout.astro</code> with a "remove at launch" comment — correct today, invisible-to-Google if it ships. It isn't mentioned in the deploy instructions.</p>
+      <div class="fix"><b>Fix</b> Add to the launch checklist and DEPLOY.md, or gate it on the <code>SITE_URL</code> env var so production builds drop it automatically.</div>
+    </article>
+  </section>
+
+  <section aria-labelledby="launch-title">
+    <div class="launch">
+      <h2 id="launch-title">SEO Launch Checklist</h2>
+      <p class="section-sub">In order. Items 1–4 before DNS cutover; 5–7 immediately after.</p>
+      <ol>
+        <li><strong>Migrate all images off the Webflow CDN</strong>, rename descriptively, rewrite URLs (finding 3).</li>
+        <li><strong>Add structured data + breadcrumbs</strong> at the layout level (findings 1–2).</li>
+        <li><strong>Reconcile city slugs against the old site's sitemap</strong> and prepare 301s for any URL that changes (finding 4).</li>
+        <li><strong>Remove the noindex tag</strong> in <code>BaseLayout.astro</code> and confirm <code>SITE_URL</code> is production (finding 7).</li>
+        <li><strong>Submit the sitemap in Search Console</strong> and monitor coverage — the preserved URL structure should keep redirects minimal.</li>
+        <li><strong>Verify Core Web Vitals</strong> with PageSpeed Insights on the production domain (lab numbers couldn't be pulled during this audit — API quota).</li>
+        <li><strong>Sweep the /cars/ copy</strong> and decide on the PPF city-page expansion (findings 5–6).</li>
+      </ol>
+    </div>
+  </section>
+
+  <section aria-labelledby="method-title">
+    <h2 class="section-title" id="method-title">Method</h2>
+    <div class="method">
+      <p>Audited against the SEO sections of the agency's "SEO and CRO Web Design Guidelines" on August 5, 2026. Raw HTML was fetched and inspected for seven templates on the live Vercel deploy: homepage, service page, location page, two ceramic-coating city pages (for duplicate-content comparison), vehicle page, and contact — plus <span class="mono">robots.txt</span> and the full 184-URL sitemap. Checks covered titles, meta descriptions, canonicals, robots directives, heading hierarchy, semantic regions, structured data, image formats/alt/filenames/lazy-loading, slug consistency across hubs, and cross-hub coverage. Content uniqueness was measured by text similarity between same-template city pages with city names neutralized. Lab Core Web Vitals were not measured (PageSpeed Insights anonymous quota exhausted); performance is scored on implementation signals in the markup.</p>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <span>Outrider Digital — internal pre-launch audit</span>
+    <span>Smith Bros Mobile Detailing · sbmobiledetailing.com</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
