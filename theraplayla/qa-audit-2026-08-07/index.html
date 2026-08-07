@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>TheraPlay LA — Pre-Launch QA Audit · 2026-08-07</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ground:#f6f9fa; --panel:#ffffff; --ink:#14232e; --muted:#5f7079; --line:#e0e8ed;
+  --teal:#0f6f8c; --sky:#3aa7cb;
+  --pass:#256e46; --pass-bg:#e3f2e9; --fail:#a93a34; --fail-bg:#f9e8e6;
+  --man:#8a5f0b; --man-bg:#f7eed8; --na:#68737a; --na-bg:#edf1f3;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font:400 16px/1.65 "Nunito Sans",system-ui,sans-serif;}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px 96px}
+header.mast{border-bottom:1px solid var(--line);background:var(--panel);padding:40px 0 28px;margin-bottom:8px}
+header.mast .wrap{padding-bottom:0}
+.eyebrow{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin:0 0 10px}
+h1{font-family:Fraunces,serif;font-weight:650;font-size:clamp(28px,5vw,40px);line-height:1.15;margin:0 0 10px;text-wrap:balance}
+.mast p.sub{color:var(--muted);margin:0;max-width:62ch}
+.verdict{display:inline-block;margin-top:18px;padding:8px 16px;border-radius:6px;background:var(--fail-bg);color:var(--fail);font-weight:800;letter-spacing:.04em}
+h2{font-family:Fraunces,serif;font-weight:650;font-size:26px;margin:56px 0 12px;padding-top:24px;border-top:1px solid var(--line);text-wrap:balance}
+h3{font-size:18px;font-weight:800;margin:32px 0 8px}
+a{color:var(--teal)}
+p{max-width:70ch}
+hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+thead th{border-bottom:2px solid var(--ink)}
+.tblwrap,pre{overflow-x:auto}
+table{min-width:480px}
+pre{background:#0e1d27;color:#dceaf1;padding:18px 20px;border-radius:8px;font-size:13px;line-height:1.5}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:var(--na-bg);padding:1px 5px;border-radius:4px}
+pre code{background:none;padding:0}
+ul,ol{padding-left:26px}
+li{margin:6px 0}
+li::marker{color:var(--muted)}
+blockquote{margin:16px 0;padding:2px 18px;border-left:3px solid var(--sky);color:var(--muted)}
+.chk{display:inline-block;width:17px;height:17px;border-radius:4px;border:1.5px solid var(--muted);
+  font-size:12px;line-height:15px;text-align:center;vertical-align:-2px;margin-right:2px;color:var(--pass)}
+.chk-done{border-color:var(--pass);background:var(--pass-bg)}
+.st{display:inline-block;padding:1px 8px;border-radius:99px;font-size:11.5px;font-weight:800;letter-spacing:.05em}
+.st-pass{background:var(--pass-bg);color:var(--pass)}
+.st-fail{background:var(--fail-bg);color:var(--fail)}
+.st-man{background:var(--man-bg);color:var(--man)}
+.st-na{background:var(--na-bg);color:var(--na)}
+.st-crit{background:var(--ink);color:#fff}
+footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px}
+@media print{.st{border:1px solid currentColor}}
+</style>
+</head>
+<body>
+<header class="mast"><div class="wrap">
+<p class="eyebrow">Outrider Digital · Internal QA — 2026-08-07</p>
+</div></header>
+<main class="wrap">
+<h1>TheraPlay LA — Pre-Launch QA Audit</h1>
+<p><strong>Date:</strong> 2026-08-07 · <strong>Verdict: 🔴 NO-GO (yet)</strong></p>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current live site</td>
+<td>https://www.theraplayla.com (Squarespace, 90 indexed URLs)</td>
+</tr>
+<tr>
+<td>Staging candidate</td>
+<td>https://theraplay-la-mockup.vercel.app (Astro mockup, 11 pages, repo <a href="https://github.com/danielagencyos/theraplay-la-mockup"><code>theraplay-la-mockup</code></a>)</td>
+</tr>
+<tr>
+<td>Result</td>
+<td>34 pass · <strong>44 fail</strong> · 48 manual · 10 n/a</td>
+</tr>
+</tbody>
+</table></div>
+<h2>The 8 launch blockers</h2>
+<ol>
+<li><strong>Contact form sends data nowhere</strong> (<code>onsubmit="event.preventDefault()"</code> — no backend, no success state)</li>
+<li><strong>No redirects</strong> — 89/90 old URLs would 404; <strong>~88% of organic traffic is blog posts that don't exist on the new site</strong></li>
+<li><strong>Opening hours wrong</strong> — staging says 8am–6pm + weekends; live business hours are 10am–6pm, weekends closed</li>
+<li><strong>Mockup artifacts live</strong> — "Website mockup concept" footer + fictional testimonials on the homepage</li>
+<li><strong>No sitemap.xml / robots.txt</strong></li>
+<li><strong>Zero analytics</strong> — no GA4, no conversion tracking</li>
+<li><strong>No privacy policy</strong> — while the form collects a child's name, age, and health concerns (CCPA)</li>
+<li><strong>Real booking flow missing</strong> — live site's Google Calendar scheduler isn't on staging</li>
+</ol>
+<p>The good news: copy is clean and typo-free, NAP is consistent and matches the live site, all links/images resolve, titles/descriptions/H1s are unique, no secrets in the repo, and TTFB is excellent. The blockers are mostly wiring, not rework — except the <strong>blog/shop migration decision, which needs a team + client call</strong> (the shop includes paid intake-screener products).</p>
+<h2>Biggest strategic risk</h2>
+<p>The new site is 11 pages replacing 90. The blog <em>is</em> the SEO asset (reflex-series posts alone ≈ 84% of organic visits). Launching without migrating it — or at least redirecting + planning its rebuild — trades the site's entire organic footprint for a design refresh.</p>
+<hr />
+<p><em>Read-only audit by Claude Code for the Outrider Digital team. No forms submitted, nothing modified on either site.</em></p>
+<hr />
+<h1>Website Go-Live QA Results — TheraPlay LA</h1>
+<p><strong>Audited:</strong> 2026-08-07 · <strong>Staging:</strong> https://theraplay-la-mockup.vercel.app (Astro 6 + Tailwind 4, repo <code>danielagencyos/theraplay-la-mockup</code>, HEAD <code>e63b79b</code> = deployed) · <strong>Replaces:</strong> https://www.theraplayla.com (Squarespace, 90 sitemap URLs)
+<strong>Method:</strong> read-only audit — full crawl of all 11 staging pages, sitewide link/image testing, source-code inspection, live-site cross-check, Semrush traffic data. <strong>No forms were submitted</strong> (no permission given; the form is inert anyway). Browser-rendering checks (breakpoints, console, real devices) had no tooling in this environment and are marked MANUAL.</p>
+<hr />
+<h2>Summary</h2>
+<h3>Verdict: 🔴 <strong>NO-GO</strong></h3>
+<p>The staging site is a well-built <em>mockup</em> — clean copy, consistent NAP, unique titles, zero broken links — but it is not yet a <em>launchable website</em>. The contact form sends data nowhere, there is no analytics, no redirects from 90 indexed URLs, no privacy policy, and the site still labels itself a mockup with fictional testimonials. Most blockers are 1–2 days of engineering; the content-loss decision (blog + shop) needs a team/client call.</p>
+<h3>Scorecard</h3>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>Section</th>
+<th>✅ Pass</th>
+<th>❌ Fail</th>
+<th>🟡 Manual</th>
+<th><span class="st st-na">N/A</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content &amp; Copy</td>
+<td>4</td>
+<td>3</td>
+<td>4</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Design &amp; Layout</td>
+<td>3</td>
+<td>5</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Forms</td>
+<td>4</td>
+<td>10</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Navigation &amp; Links</td>
+<td>6</td>
+<td>3</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>SEO &amp; Meta</td>
+<td>6</td>
+<td>8</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Technical &amp; Performance</td>
+<td>5</td>
+<td>3</td>
+<td>7</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Accessibility</td>
+<td>2</td>
+<td>6</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Tracking &amp; Analytics</td>
+<td>2</td>
+<td>2</td>
+<td>5</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Security &amp; Legal</td>
+<td>2</td>
+<td>4</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Launch Day &amp; Handover</td>
+<td>0</td>
+<td>0</td>
+<td>13</td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>34</strong></td>
+<td><strong>44</strong></td>
+<td><strong>48</strong></td>
+<td><strong>10</strong></td>
+</tr>
+</tbody>
+</table></div>
+<h3>🚨 Launch-blocking failures (Critical)</h3>
+<ol>
+<li><strong>Contact form is non-functional.</strong> <code>&lt;form onsubmit="event.preventDefault()"&gt;</code> — no action, no endpoint, no success state. Every enquiry is silently discarded while the page promises "We'll reach out within one business day."
+   <em>Fix:</em> wire to Formspree/Basin/API route + styled success state + notification email to the client + spam protection.</li>
+<li><strong>No 301 redirects — 89 of 90 live URLs would 404 at launch.</strong> Semrush shows <strong>~88% of organic traffic comes from blog posts</strong> (palmar grasp 644 visits/mo, ATNR 585, Moro 499…) and the staging site has no blog, no shop, and no redirect config.
+   <em>Fix:</em> ship the redirect map in the redirect map section below via <code>vercel.json</code>; decide the blog/shop migration plan (see below).</li>
+<li><strong>Opening hours are wrong.</strong> Staging says "Monday - Friday: 8am - 6pm / Weekend intensives by arrangement"; the live site's configured hours are <strong>Mon–Fri 10am–6pm, weekends closed</strong>. <em>Fix:</em> confirm with client, correct footer/contact page.</li>
+<li><strong>Mockup content still live.</strong> Footer on all 11 pages: "· Website mockup concept". Homepage testimonials are explicitly "Illustrative testimonials for mockup purposes" (fictional parents Jessica M., David R., Priya S.). <em>Fix:</em> remove label; replace with real, permission-cleared testimonials.</li>
+<li><strong>No sitemap.xml and no robots.txt</strong> (both 404). <em>Fix:</em> add <code>@astrojs/sitemap</code> + <code>site</code> URL in astro.config, static robots.txt.</li>
+<li><strong>Zero analytics.</strong> No GA4, no GTM, no conversion tracking of any kind. Launching means flying blind and losing the pre/post comparison. <em>Fix:</em> install GA4 (+ consent banner), define form/tel/mailto conversions.</li>
+<li><strong>No privacy policy</strong> — on a site whose form collects a child's name, age, and health concerns (CCPA applies; HIPAA-adjacent sensitivity). <em>Fix:</em> privacy policy page + footer link + form consent line before launch.</li>
+<li><strong>The real booking flow is missing.</strong> Live <code>/discovery-call</code> embeds a Google Calendar appointment scheduler; staging has no scheduler, only the dead form. <em>Fix:</em> embed/link the existing Google Calendar scheduler.</li>
+</ol>
+<h3>Other failures (High)</h3>
+<ul>
+<li><strong>SEO regression vs live:</strong> no canonical tags (and <code>/about</code> + <code>/about/</code> both serve 200 with identical HTML), no JSON-LD (live has LocalBusiness schema today), staging is currently <strong>indexable by Google</strong> (no robots/noindex/auth on the vercel.app URL — risk of duplicate-content competition at launch).</li>
+<li><strong>Content loss needs a decision:</strong> entire blog (35 URLs — the traffic engine), entire shop (28 URLs <strong>including paid intake-screener products — a revenue line</strong>), and 9 dedicated service pages (teletherapy, nutrition, School of Sleep ×2, primitive reflex integration, DMI, 2E support, in-school therapy, regional center) have no staging equivalent.</li>
+<li><strong>Images unoptimised:</strong> 11 MB in <code>public/images</code>, zero WebP/AVIF, three PNGs over 1 MB (team-jonathon 1.35 MB, stock-teletherapy 1.24 MB, team-flo 1.04 MB), homepage payload ~1.5 MB, and images served with <code>cache-control: max-age=0</code>.</li>
+<li><strong>No social links anywhere on staging</strong> (live links facebook.com/doctormarielly, instagram.com/theraplay_la, instagram.com/doctormarielly) and <strong>no Google Maps link/embed</strong> for the clinic address.</li>
+<li><strong>Footer legal links absent:</strong> no privacy, no terms.</li>
+<li><strong>10 hero images have empty <code>alt=""</code></strong> (content-bearing clinic photos on every page's hero).</li>
+<li><strong>Keyboard access:</strong> desktop Services dropdown is hover-only (unusable by keyboard), no skip link, no visible focus styles on nav.</li>
+<li><strong>404 page:</strong> bad URLs return Vercel's bare plain-text error (correct 404 status, zero branding).</li>
+<li><strong>Form details (once wired):</strong> no spam protection, no autocomplete attributes, no styled error states, no CRM integration.</li>
+<li><strong>Image licensing:</strong> <code>stock-*.{jpg,png}</code> files and clinic/team photos were gathered from public sources for the mockup — licensing/permission must be cleared before commercial launch.</li>
+<li><strong>Claims needing client sign-off:</strong> "4.5★ Google Rating", "13+ Years of Experience", "6 to 9 months of progress in as little as 3 weeks".</li>
+</ul>
+<h3>Manual items for the team (cannot be verified from outside)</h3>
+<p>Browser/device: hero contrast, horizontal scroll @320–1440px, mobile menu behaviour, card grids, sticky header, truncation, 200% zoom, cross-browser (esp. Safari), real iOS+Android devices, console errors, print check.
+Performance: PageSpeed Insights re-run (<strong>keyless API quota was exhausted today — HTTP 429</strong>; TTFB proxies were excellent: 154–230 ms).
+Client/accounts: confirm phone (424) 392-4568 &amp; canonical brand spelling ("TheraPlay LA" vs live schema's "TheraPlayLA"), hours, team roster ("Esther" has no surname), claim sign-offs, testimonial permissions, stock-photo licences, Vercel/GitHub 2FA &amp; access roles, legal entity details, cookie policy once analytics added, GSC property + sitemap submission, GBP website link at launch, uptime monitoring, backup/rollback plan, and the entire Launch Day &amp; Handover section.</p>
+<hr />
+<h2>Full checklist</h2>
+<p>Legend: <span class="st st-pass">PASS</span> · <span class="st st-fail">FAIL</span> · <span class="st st-man">MANUAL</span> (needs human/browser) · <span class="st st-na">N/A</span></p>
+<h2>Content &amp; Copy</h2>
+<ul>
+<li><span class="chk chk-done">✓</span> <strong>All copy proofread</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-pass">PASS</span>: full visible text of all 11 pages extracted and read; no spelling/grammar errors found.</li>
+<li><span class="chk chk-open"></span> <strong>No placeholder text</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-fail">FAIL</span>: no lorem/TBC/TODO, but footer says "· Website mockup concept" on every page and homepage testimonials are labelled "Illustrative testimonials for mockup purposes".</li>
+<li><span class="chk chk-done">✓</span> <strong>Business name, phone, email correct</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-pass">PASS</span> (with note): (424) 392-4568 / hello@theraplayla.com / identical on all 11 pages and match live site data. Note: live schema uses "TheraPlayLA" (one word), staging "TheraPlay LA" — pick one canonical form; confirm phone with client.</li>
+<li><span class="chk chk-open"></span> <strong>Address &amp; opening hours correct</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-fail">FAIL</span>: address matches (1070 S La Brea Ave, LA, CA 90019) but hours don't — staging "Mon–Fri 8am–6pm + weekend intensives" vs live's configured Mon–Fri <strong>10am</strong>–6pm, weekends closed.</li>
+<li><span class="chk chk-open"></span> <strong>Prices / offers accurate</strong> (High) — <span class="st st-man">MANUAL</span>: no prices shown; claims needing sign-off: "4.5★ Google Rating", "13+ Years of Experience", "6–9 months of progress in as little as 3 weeks", "free discovery call".</li>
+<li><span class="chk chk-open"></span> <strong>Tone matches brand</strong> (High) — <span class="st st-man">MANUAL</span>: no client style guide available to check against.</li>
+<li><span class="chk chk-open"></span> <strong>No truncated text</strong> (High) — <span class="st st-man">MANUAL</span>: needs browser at breakpoints.</li>
+<li><span class="chk chk-done">✓</span> <strong>Dates &amp; copyright year current</strong> (Medium) — <span class="st st-pass">PASS</span>: "© 2026 TheraPlay LA" (correct year; hardcoded — make dynamic).</li>
+<li><span class="chk chk-open"></span> <strong>Testimonials approved</strong> (High) — <span class="st st-fail">FAIL</span>: all three homepage testimonials are fictional mockup content; must be replaced with real, permission-cleared quotes.</li>
+<li><span class="chk chk-open"></span> <strong>Team bios &amp; photos current</strong> (Medium) — <span class="st st-man">MANUAL</span>: 6 members listed (Dr. Marielly, Marci Silver, Esther, Jonathon Tenorio, Flo Lopez, Ana Lopez); "Esther" lacks a surname; verify roster/photos with client.</li>
+<li><span class="chk chk-done">✓</span> <strong>CTAs consistent</strong> (Medium) — <span class="st st-pass">PASS</span>: "Book a Free Discovery Call" dominant; minor variants (header "Book a Discovery Call", form "Request a Free Discovery Call") are acceptable.</li>
+<li><span class="chk chk-open"></span> <strong>Downloadables work</strong> (Medium) — <span class="st st-na">N/A</span>: none on staging.</li>
+<li><span class="chk chk-open"></span> <strong>Empty states covered</strong> (Medium) — <span class="st st-na">N/A</span>: no blog/news section on staging.</li>
+</ul>
+<h2>Design &amp; Layout</h2>
+<ul>
+<li><span class="chk chk-open"></span> <strong>Hero text readable</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-man">MANUAL</span>: heroes use gradient overlays over photos; verify contrast at all breakpoints in browser.</li>
+<li><span class="chk chk-done">✓</span> <strong>Fonts loading correctly</strong> (High) — <span class="st st-pass">PASS</span> (HTTP): Google Fonts CSS (Fraunces, Nunito Sans, Caveat) returns 200; render check manual. Consider self-hosting (only third-party dependency on the site).</li>
+<li><span class="chk chk-done">✓</span> <strong>No broken images</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-pass">PASS</span>: all 27 unique image URLs return 200 across all pages.</li>
+<li><span class="chk chk-open"></span> <strong>Images not distorted</strong> (High) — <span class="st st-man">MANUAL</span>: one rotated photo already fixed (commit e63b79b); visually re-check all.</li>
+<li><span class="chk chk-open"></span> <strong>Images optimised</strong> (High) — <span class="st st-fail">FAIL</span>: 11 MB in public/images, 0 WebP/AVIF, 3 PNGs &gt; 1 MB, 11 more files 300 KB–1 MB, homepage payload ~1.5 MB, hero <code>loading="eager"</code> on every page, no <code>astro:assets</code> pipeline.</li>
+<li><span class="chk chk-done">✓</span> <strong>Logo correct in header &amp; footer</strong> (High) — <span class="st st-pass">PASS</span> (with note): links to homepage from every page, loads fine; it's a 167 KB PNG (25 KB mobile variant) — SVG/compressed version recommended; sharpness check manual.</li>
+<li><span class="chk chk-open"></span> <strong>No horizontal scroll</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-man">MANUAL</span>: needs browser at 320/375/768/1024/1440px.</li>
+<li><span class="chk chk-open"></span> <strong>Card grids even</strong> (Medium) — <span class="st st-man">MANUAL</span>.</li>
+<li><span class="chk chk-open"></span> <strong>Section rhythm consistent</strong> (Medium) — <span class="st st-man">MANUAL</span>.</li>
+<li><span class="chk chk-open"></span> <strong>Sticky header behaves</strong> (Medium) — <span class="st st-man">MANUAL</span>.</li>
+<li><span class="chk chk-open"></span> <strong>Hover &amp; focus states</strong> (Medium) — <span class="st st-fail">FAIL</span>: form inputs have focus rings; nav links/buttons rely on browser defaults, no global <code>:focus-visible</code> styling.</li>
+<li><span class="chk chk-open"></span> <strong>Animations behave</strong> (Medium) — <span class="st st-fail">FAIL</span>: <code>.fade-in-up</code> starts at <code>opacity:0</code> driven by IntersectionObserver — content is invisible if JS fails; no <code>prefers-reduced-motion</code> support.</li>
+<li><span class="chk chk-open"></span> <strong>Brand colours only</strong> (Medium) — <span class="st st-man">MANUAL</span>: Tailwind theme tokens defined; visual sweep needed.</li>
+<li><span class="chk chk-open"></span> <strong>Favicon &amp; touch icons</strong> (Medium) — <span class="st st-fail">FAIL</span>: only a PNG <code>rel="icon"</code> (logo file); <code>/favicon.ico</code> 404, no apple-touch-icon, no web manifest.</li>
+<li><span class="chk chk-open"></span> <strong>404 page designed</strong> (High) — <span class="st st-fail">FAIL</span>: no <code>404.astro</code>; bad URLs get Vercel's bare plain-text "NOT_FOUND" (correct 404 status, zero branding/links).</li>
+<li><span class="chk chk-open"></span> <strong>Print check</strong> (Low) — <span class="st st-man">MANUAL</span>.</li>
+</ul>
+<h2>Forms</h2>
+<ul>
+<li><span class="chk chk-open"></span> <strong>Every form submits</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-fail">FAIL</span>: <code>&lt;form onsubmit="event.preventDefault()"&gt;</code>, no action/endpoint/fetch anywhere — submissions are discarded.</li>
+<li><span class="chk chk-open"></span> <strong>Notifications arrive</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-fail">FAIL</span>: nothing is ever sent; no recipient configured.</li>
+<li><span class="chk chk-open"></span> <strong>Reply-to set correctly</strong> (High) — <span class="st st-fail">FAIL</span>: no backend exists.</li>
+<li><span class="chk chk-open"></span> <strong>Success state shows</strong> (High) — <span class="st st-fail">FAIL</span>: submit does nothing visually — no message, no thank-you page.</li>
+<li><span class="chk chk-open"></span> <strong>Thank-you page tracked</strong> (High) — <span class="st st-fail">FAIL</span>: no thank-you page and no conversion event.</li>
+<li><span class="chk chk-done">✓</span> <strong>Validation works</strong> (High) — <span class="st st-pass">PASS</span>: native <code>required</code> on name/email/phone + <code>type=email</code>/<code>type=tel</code> (browser-default messages only).</li>
+<li><span class="chk chk-open"></span> <strong>Error states styled</strong> (Medium) — <span class="st st-fail">FAIL</span>: no custom inline error styling.</li>
+<li><span class="chk chk-open"></span> <strong>Spam protection on</strong> (High) — <span class="st st-fail">FAIL</span>: no reCAPTCHA/Turnstile/honeypot.</li>
+<li><span class="chk chk-open"></span> <strong>Test submissions removed</strong> (Medium) — <span class="st st-na">N/A</span>: none submitted during audit.</li>
+<li><span class="chk chk-done">✓</span> <strong>Labels &amp; placeholders</strong> (Medium) — <span class="st st-pass">PASS</span>: every field has a visible <code>&lt;label for&gt;</code>; placeholders are guidance only.</li>
+<li><span class="chk chk-done">✓</span> <strong>Focus states visible</strong> (Medium) — <span class="st st-pass">PASS</span>: <code>focus:ring-2</code> on all inputs.</li>
+<li><span class="chk chk-done">✓</span> <strong>Mobile-friendly inputs</strong> (High) — <span class="st st-pass">PASS</span>: correct email/tel input types (tap-size check manual).</li>
+<li><span class="chk chk-open"></span> <strong>Autofill works</strong> (Low) — <span class="st st-fail">FAIL</span>: no <code>autocomplete</code> attributes on any field.</li>
+<li><span class="chk chk-open"></span> <strong>CRM / integration firing</strong> (High) — <span class="st st-fail">FAIL</span>: no CRM/email-platform integration.</li>
+<li><span class="chk chk-open"></span> <strong>Consent handled</strong> (High) — <span class="st st-fail">FAIL</span>: no consent checkbox or privacy link — form collects a child's name/age/health concerns.</li>
+<li><span class="chk chk-open"></span> <strong>File uploads work</strong> (Medium) — <span class="st st-na">N/A</span>.</li>
+</ul>
+<h2>Navigation &amp; Links</h2>
+<ul>
+<li><span class="chk chk-done">✓</span> <strong>All nav links work</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-pass">PASS</span>: every header/footer/in-page link resolves 200; no <code>#</code> stubs, no empty hrefs.</li>
+<li><span class="chk chk-done">✓</span> <strong>No broken links sitewide</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-pass">PASS</span>: sitewide crawl — 13 unique hrefs + 27 images + CSS + fonts all 2xx; zero redirect chains.</li>
+<li><span class="chk chk-done">✓</span> <strong>Active page highlighted</strong> (Low) — <span class="st st-pass">PASS</span>: current nav item styled <code>text-brand-primary</code> (add <code>aria-current="page"</code> for screen readers).</li>
+<li><span class="chk chk-open"></span> <strong>Mobile menu works</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-man">MANUAL</span>: JS toggle looks sound in code but has no <code>aria-expanded</code>, no Escape-close, no focus trap; browser test required.</li>
+<li><span class="chk chk-done">✓</span> <strong>Logo links home</strong> (Medium) — <span class="st st-pass">PASS</span>: from every page.</li>
+<li><span class="chk chk-open"></span> <strong>External links behave</strong> (Medium) — <span class="st st-fail">FAIL</span>: there are <strong>zero external links</strong> — no social profiles (live has 3) and no Google Maps link on the address.</li>
+<li><span class="chk chk-done">✓</span> <strong>Phone &amp; email links</strong> (High) — <span class="st st-pass">PASS</span>: <code>tel:+14243924568</code> and <code>mailto:hello@theraplayla.com</code> consistent sitewide (confirm number with client).</li>
+<li><span class="chk chk-open"></span> <strong>Anchor links land correctly</strong> (Medium) — <span class="st st-na">N/A</span>: no in-page anchors.</li>
+<li><span class="chk chk-open"></span> <strong>Breadcrumbs correct</strong> (Low) — <span class="st st-na">N/A</span>.</li>
+<li><span class="chk chk-open"></span> <strong>Footer links complete</strong> (High) — <span class="st st-fail">FAIL</span>: no privacy policy, no terms, no legal links at all.</li>
+<li><span class="chk chk-open"></span> <strong>Redirects in place</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-fail">FAIL</span>: 89/90 live URLs 404 on staging (only <code>/contact</code> matches); no redirect config exists. Full proposed map: the redirect map section below.</li>
+<li><span class="chk chk-done">✓</span> <strong>No orphan pages</strong> (Medium) — <span class="st st-pass">PASS</span>: all 11 pages reachable from nav/footer.</li>
+</ul>
+<h2>SEO &amp; Meta</h2>
+<ul>
+<li><span class="chk chk-done">✓</span> <strong>Unique title tags</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-pass">PASS</span>: all 11 unique/descriptive; homepage runs 78 chars (trim recommended).</li>
+<li><span class="chk chk-done">✓</span> <strong>Unique meta descriptions</strong> (High) — <span class="st st-pass">PASS</span>: all unique; 4 pages exceed ~160 chars (myofunctional 169, OT 179, speech 170, team 168).</li>
+<li><span class="chk chk-done">✓</span> <strong>One H1 per page</strong> (High) — <span class="st st-pass">PASS</span>: exactly one per page, all unique (heading-order issue on /team logged under Accessibility).</li>
+<li><span class="chk chk-done">✓</span> <strong>Indexing enabled</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-pass">PASS</span>: no noindex/nofollow anywhere; nothing to remove at launch.</li>
+<li><span class="chk chk-open"></span> <strong>Staging blocked</strong> (High) — <span class="st st-fail">FAIL</span>: the vercel.app mockup is fully indexable <strong>right now</strong> (no robots.txt, no noindex, no auth) — add noindex until launch, then remove.</li>
+<li><span class="chk chk-open"></span> <strong>XML sitemap live</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-fail">FAIL</span>: /sitemap.xml 404 (no sitemap integration, no <code>site</code> in astro.config).</li>
+<li><span class="chk chk-open"></span> <strong>Search Console verified</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-man">MANUAL</span>: to be done at launch (property, sitemap submission, coverage watch).</li>
+<li><span class="chk chk-open"></span> <strong>Canonical tags correct</strong> (High) — <span class="st st-fail">FAIL</span>: no canonical on any page; <code>/about</code> and <code>/about/</code> both 200 with identical HTML (no trailingSlash policy).</li>
+<li><span class="chk chk-open"></span> <strong>Redirects preserve equity</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-fail">FAIL</span>: Semrush — blog posts = ~88% of organic traffic (top page 644 visits/mo), all 404 with no redirect; see the redirect map section below.</li>
+<li><span class="chk chk-open"></span> <strong>Schema markup valid</strong> (High) — <span class="st st-fail">FAIL</span>: zero JSON-LD on staging (live site has LocalBusiness schema — this is a regression). Add LocalBusiness/MedicalClinic + FAQPage (5 pages have FAQ sections).</li>
+<li><span class="chk chk-open"></span> <strong>Open Graph &amp; Twitter cards</strong> (Medium) — <span class="st st-fail">FAIL</span>: no og:/twitter: tags on any page — shares render bare.</li>
+<li><span class="chk chk-open"></span> <strong>Image alt text</strong> (High) — <span class="st st-fail">FAIL</span>: 10 hero images (content-bearing clinic photos) have <code>alt=""</code>; all other images have descriptive alts.</li>
+<li><span class="chk chk-done">✓</span> <strong>URL structure clean</strong> (Medium) — <span class="st st-pass">PASS</span>: lowercase, hyphenated, logical <code>/services/*</code> hierarchy.</li>
+<li><span class="chk chk-open"></span> <strong>No duplicate content</strong> (High) — <span class="st st-fail">FAIL</span>: trailing-slash duplicates (above); www/http canonicalization is DNS/launch-day config.</li>
+<li><span class="chk chk-open"></span> <strong>Google Business Profile</strong> (High) — <span class="st st-man">MANUAL</span>: update GBP website link at launch; NAP on site matches GBP address per research.</li>
+<li><span class="chk chk-done">✓</span> <strong>Local landing pages</strong> (Medium) — <span class="st st-pass">PASS</span>: 5 service pages target distinct keywords ("pediatric occupational therapy los angeles", etc.); note lost dedicated pages (reflex integration, DMI, 2E) reduce coverage.</li>
+</ul>
+<h2>Technical &amp; Performance</h2>
+<ul>
+<li><span class="chk chk-done">✓</span> <strong>Production build clean</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-pass">PASS</span> (by deployment evidence): Vercel serves all 11 pages from HEAD <code>e63b79b</code>; repo clean and matches origin/main. (Local build not run — no Node in audit env.)</li>
+<li><span class="chk chk-done">✓</span> <strong>HTTPS everywhere</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-pass">PASS</span> (staging): valid cert, HSTS w/ preload, no mixed content (only external ref is Google Fonts over https). Production domain re-check at launch.</li>
+<li><span class="chk chk-open"></span> <strong>Domain &amp; DNS correct</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-man">MANUAL</span> (launch day). Baseline recorded: apex A → Squarespace (198.185.159.144/145, 198.49.23.144/145), www CNAME ext-cust.squarespace.com, <strong>MX → Google Workspace (aspmx.l.google.com) — do not touch MX when switching</strong>.</li>
+<li><span class="chk chk-open"></span> <strong>Core Web Vitals pass</strong> (High) — <span class="st st-man">MANUAL</span>: PSI API quota exhausted today (HTTP 429) — re-run. Proxies: TTFB 154–230 ms (excellent), but ~1.5 MB image payload risks mobile LCP.</li>
+<li><span class="chk chk-open"></span> <strong>Lighthouse scores</strong> (High) — <span class="st st-man">MANUAL</span>: same PSI re-run.</li>
+<li><span class="chk chk-open"></span> <strong>Caching &amp; compression</strong> (Medium) — <span class="st st-fail">FAIL</span> (partial): <code>/_astro/*</code> immutable 1-year ✅, Brotli ✅, but <code>/images/*</code> served <code>cache-control: max-age=0, must-revalidate</code> — 11 MB of images re-validated every visit.</li>
+<li><span class="chk chk-open"></span> <strong>No console errors</strong> (High) — <span class="st st-man">MANUAL</span>: needs browser.</li>
+<li><span class="chk chk-open"></span> <strong>Cross-browser check</strong> (High) — <span class="st st-man">MANUAL</span>.</li>
+<li><span class="chk chk-open"></span> <strong>Real-device mobile check</strong> (High) — <span class="st st-man">MANUAL</span>.</li>
+<li><span class="chk chk-done">✓</span> <strong>404 &amp; error handling</strong> (Medium) — <span class="st st-pass">PASS</span> (status): unknown URLs return true 404 (no soft-404). Design failure logged under Design &amp; Layout.</li>
+<li><span class="chk chk-open"></span> <strong>Backups &amp; rollback</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-man">MANUAL</span>: rollback = DNS revert to Squarespace (keep subscription active until redirects proven); confirm plan and archive old site content (esp. blog + shop copy) before any cancellation.</li>
+<li><span class="chk chk-open"></span> <strong>Uptime monitoring</strong> (Medium) — <span class="st st-fail">FAIL</span>: none configured (add uptime + SSL-expiry monitor at launch).</li>
+<li><span class="chk chk-done">✓</span> <strong>Environment variables</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-pass">PASS</span>: no API keys used anywhere; no sandbox keys; local <code>.env.local</code> (Vercel OIDC token) is gitignored.</li>
+<li><span class="chk chk-open"></span> <strong>Third-party embeds work</strong> (High) — <span class="st st-fail">FAIL</span>: none exist — the live site's Google Calendar appointment scheduler (real booking flow) and any map embed are missing.</li>
+<li><span class="chk chk-done">✓</span> <strong>Structured deploy</strong> (Medium) — <span class="st st-pass">PASS</span>: git → GitHub → Vercel, clean working tree.</li>
+</ul>
+<h2>Accessibility</h2>
+<ul>
+<li><span class="chk chk-open"></span> <strong>Colour contrast passes</strong> (High) — <span class="st st-man">MANUAL</span>: spot-check with tooling (hero overlays help but verify).</li>
+<li><span class="chk chk-open"></span> <strong>Keyboard navigation</strong> (High) — <span class="st st-fail">FAIL</span>: desktop Services dropdown is CSS hover-only (not keyboard-operable); no skip-to-content link; mobile menu lacks focus management/Escape.</li>
+<li><span class="chk chk-open"></span> <strong>Visible focus indicator</strong> (High) — <span class="st st-fail">FAIL</span>: forms yes; nav/buttons browser-default only, no <code>:focus-visible</code> styles.</li>
+<li><span class="chk chk-open"></span> <strong>Alt text meaningful</strong> (High) — <span class="st st-fail">FAIL</span>: 10 content-bearing hero images with <code>alt=""</code>.</li>
+<li><span class="chk chk-done">✓</span> <strong>Form labels associated</strong> (High) — <span class="st st-pass">PASS</span>: all inputs have <code>&lt;label for&gt;</code>.</li>
+<li><span class="chk chk-open"></span> <strong>Heading order logical</strong> (Medium) — <span class="st st-fail">FAIL</span>: /team skips h1→h3 (team cards are h3 with no h2 before them).</li>
+<li><span class="chk chk-open"></span> <strong>Link text descriptive</strong> (Medium) — <span class="st st-fail">FAIL</span>: six identical "Learn more" links on / and /services (add aria-labels or descriptive text).</li>
+<li><span class="chk chk-open"></span> <strong>Motion respects preferences</strong> (Medium) — <span class="st st-fail">FAIL</span>: no <code>prefers-reduced-motion</code>; scroll animations always run (nothing flashes).</li>
+<li><span class="chk chk-open"></span> <strong>Zoom to 200%</strong> (Medium) — <span class="st st-man">MANUAL</span>.</li>
+<li><span class="chk chk-done">✓</span> <strong>Language attribute set</strong> (Low) — <span class="st st-pass">PASS</span>: <code>lang="en"</code> on all pages.</li>
+<li><span class="chk chk-open"></span> <strong>Media has alternatives</strong> (Medium) — <span class="st st-na">N/A</span>: no video/audio.</li>
+<li><span class="chk chk-open"></span> <strong>Automated scan run</strong> (High) — <span class="st st-man">MANUAL</span>: Lighthouse a11y blocked by PSI quota; run axe/Lighthouse before launch.</li>
+</ul>
+<h2>Tracking &amp; Analytics</h2>
+<ul>
+<li><span class="chk chk-open"></span> <strong>GA4 installed &amp; receiving</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-fail">FAIL</span>: no GA4 (or any analytics) on any page.</li>
+<li><span class="chk chk-open"></span> <strong>Conversion events firing</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-fail">FAIL</span>: nothing to fire — no form backend, no tags.</li>
+<li><span class="chk chk-open"></span> <strong>Google Tag Manager clean</strong> (High) — <span class="st st-na">N/A</span>: GTM not used.</li>
+<li><span class="chk chk-open"></span> <strong>Search Console linked</strong> (High) — <span class="st st-man">MANUAL</span>: after GA4 + GSC setup at launch.</li>
+<li><span class="chk chk-open"></span> <strong>Ads conversion tracking</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-man">MANUAL</span>: confirm whether ads are running; no tags present on staging.</li>
+<li><span class="chk chk-open"></span> <strong>Call tracking working</strong> (High) — <span class="st st-na">N/A</span>: not used.</li>
+<li><span class="chk chk-open"></span> <strong>Cookie consent compliant</strong> (High) — <span class="st st-man">MANUAL</span>: currently zero cookies/third-party tags (only Google Fonts) so nothing to consent to; a banner/consent mode becomes required the moment GA4 is added (CA traffic → CCPA notice).</li>
+<li><span class="chk chk-open"></span> <strong>Internal traffic excluded</strong> (Medium) — <span class="st st-man">MANUAL</span>: set up agency/client IP filters with GA4.</li>
+<li><span class="chk chk-done">✓</span> <strong>UTM handling</strong> (Medium) — <span class="st st-pass">PASS</span>: static pages, no parameter-stripping redirects.</li>
+<li><span class="chk chk-open"></span> <strong>Heatmapping (optional)</strong> (Low) — <span class="st st-na">N/A</span>: not in scope/package.</li>
+<li><span class="chk chk-open"></span> <strong>Annotate the launch</strong> (Medium) — <span class="st st-man">MANUAL</span>.</li>
+<li><span class="chk chk-done">✓</span> <strong>Baseline recorded</strong> (Medium) — <span class="st st-pass">PASS</span> (organic): Semrush per-page traffic baseline captured in this audit (top pages table in redirect-map.md); GA4/GSC export still needed from client accounts.</li>
+</ul>
+<h2>Security &amp; Legal</h2>
+<ul>
+<li><span class="chk chk-open"></span> <strong>Privacy policy live</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-fail">FAIL</span>: none exists; form gathers child health-adjacent data; CCPA applies (CA business).</li>
+<li><span class="chk chk-open"></span> <strong>Cookie policy accurate</strong> (High) — <span class="st st-man">MANUAL</span>: no cookies set today; add policy together with analytics/consent banner.</li>
+<li><span class="chk chk-open"></span> <strong>Terms &amp; conditions</strong> (High) — <span class="st st-fail">FAIL</span>: none present.</li>
+<li><span class="chk chk-open"></span> <strong>Legal entity details</strong> (Medium) — <span class="st st-man">MANUAL</span>: confirm required entity details with client.</li>
+<li><span class="chk chk-open"></span> <strong>Admin access secured</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-man">MANUAL</span>: verify 2FA + access on Vercel/GitHub/domain registrar; no CMS.</li>
+<li><span class="chk chk-open"></span> <strong>Least-privilege access</strong> (High) — <span class="st st-man">MANUAL</span>.</li>
+<li><span class="chk chk-done">✓</span> <strong>Software up to date</strong> (High) — <span class="st st-pass">PASS</span>: Astro ^6.3, Tailwind ^4.3 (current); minimal dependency surface.</li>
+<li><span class="chk chk-open"></span> <strong>Security headers set</strong> (Medium) — <span class="st st-fail">FAIL</span>: only HSTS; no CSP, X-Content-Type-Options, X-Frame-Options, or Referrer-Policy; <code>access-control-allow-origin: *</code> set. Add via vercel.json headers.</li>
+<li><span class="chk chk-done">✓</span> <strong>No exposed secrets</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-pass">PASS</span>: no keys/credentials in client source or repo; <code>.env*</code> gitignored.</li>
+<li><span class="chk chk-open"></span> <strong>Image/content licences</strong> (High) — <span class="st st-fail">FAIL</span> (pending clearance): <code>stock-*</code> images + clinic/team photos were gathered from public sources for the mockup — replace with client-owned/licensed assets or obtain rights before launch.</li>
+<li><span class="chk chk-open"></span> <strong>GDPR data handling</strong> (High) — <span class="st st-fail">FAIL</span>: no consent capture, no privacy notice, no DPA trail for whatever form backend gets chosen.</li>
+</ul>
+<h2>Launch Day &amp; Handover</h2>
+<p>All items pending — this is a mockup being evaluated for promotion to production. Key notes recorded during audit:</p>
+<ul>
+<li><span class="chk chk-open"></span> <strong>Client sign-off received</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-man">MANUAL</span>: not yet sought; blockers above must be fixed first.</li>
+<li><span class="chk chk-open"></span> <strong>Launch window agreed</strong> (High) — <span class="st st-man">MANUAL</span>.</li>
+<li><span class="chk chk-open"></span> <strong>DNS switch &amp; propagation</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-man">MANUAL</span>: move apex A + www CNAME to Vercel; <strong>leave Google Workspace MX/SPF/DKIM untouched</strong>; verify via whatsmydns.</li>
+<li><span class="chk chk-open"></span> <strong>Full post-launch crawl</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-man">MANUAL</span>: re-crawl on theraplayla.com after switch.</li>
+<li><span class="chk chk-open"></span> <strong>Smoke-test everything live</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-man">MANUAL</span>: form → inbox, tel links, booking scheduler, GA4 realtime.</li>
+<li><span class="chk chk-open"></span> <strong>Email deliverability intact</strong> <span class="st st-crit">CRITICAL</span> — <span class="st st-man">MANUAL</span>: send/receive test after DNS change (MX documented above).</li>
+<li><span class="chk chk-open"></span> <strong>Search Console re-check</strong> (High) — <span class="st st-man">MANUAL</span>: submit sitemap, request indexing of key pages, watch coverage 48h.</li>
+<li><span class="chk chk-open"></span> <strong>Old site decommissioned</strong> (Medium) — <span class="st st-man">MANUAL</span>: keep Squarespace paused until redirects proven; <strong>export blog + shop content first</strong>.</li>
+<li><span class="chk chk-open"></span> <strong>Client walkthrough done</strong> (High) — <span class="st st-man">MANUAL</span>: note — static Astro site has no CMS; agree the content-edit workflow with client.</li>
+<li><span class="chk chk-open"></span> <strong>Documentation delivered</strong> (High) — <span class="st st-man">MANUAL</span>.</li>
+<li><span class="chk chk-open"></span> <strong>Monitoring for week one</strong> (High) — <span class="st st-man">MANUAL</span>.</li>
+<li><span class="chk chk-open"></span> <strong>Announce &amp; promote</strong> (Medium) — <span class="st st-man">MANUAL</span>.</li>
+<li><span class="chk chk-open"></span> <strong>Post-launch review booked</strong> (Medium) — <span class="st st-man">MANUAL</span>: 30-day review vs the Semrush baseline in this repo.</li>
+</ul>
+<hr />
+<p><em>Audit run by Claude Code (Outrider Digital) on 2026-08-07. Evidence: full-page crawls, sitewide HTTP status sweeps, source inspection of <code>danielagencyos/theraplay-la-mockup@e63b79b</code>, Semrush US organic data, live-site fetches. Read-only — no forms submitted, nothing modified.</em></p>
+<hr />
+<h1>TheraPlay LA — Proposed 301 Redirect Map (old Squarespace → new site)</h1>
+<p><strong>Status sweep (2026-08-07):</strong> all 90 sitemap URLs from www.theraplayla.com tested against the staging site — <strong>89 return 404; only <code>/contact</code> resolves.</strong> Shipping without redirects loses effectively all indexed URLs.</p>
+<h2>Traffic reality (Semrush, US, organic)</h2>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>Live page</th>
+<th>Est. visits/mo</th>
+<th>Share</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/theraplay-blog/…palmar-grasp-reflex</td>
+<td>644</td>
+<td>21.7%</td>
+</tr>
+<tr>
+<td>/theraplay-blog/…atnr-asymmetrical-tonic-neck-reflex</td>
+<td>585</td>
+<td>19.7%</td>
+</tr>
+<tr>
+<td>/theraplay-blog/…moro-reflex</td>
+<td>499</td>
+<td>16.8%</td>
+</tr>
+<tr>
+<td>/theraplay-blog/…spinal-galant-reflex</td>
+<td>337</td>
+<td>11.3%</td>
+</tr>
+<tr>
+<td>/theraplay-blog/…landau-reflex</td>
+<td>236</td>
+<td>7.9%</td>
+</tr>
+<tr>
+<td>/theraplay-blog/…tonic-labyrinthine-reflex-tlr</td>
+<td>184</td>
+<td>6.2%</td>
+</tr>
+<tr>
+<td>/ (homepage)</td>
+<td>152</td>
+<td>5.1%</td>
+</tr>
+<tr>
+<td>/theraplay-blog/…rooting-reflex</td>
+<td>115</td>
+<td>3.9%</td>
+</tr>
+<tr>
+<td>/shop-ot-approved-toys</td>
+<td>100</td>
+<td>3.4%</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>≈88% of organic traffic is blog posts and ≈3% is the shop — none of which exist on the new site.</strong> Redirecting a ranking blog post to the homepage does <em>not</em> preserve its rankings; Google treats irrelevant redirects as soft-404s. <strong>Strong recommendation: migrate the blog (at minimum the reflex series) before or at launch</strong>, and decide the shop's fate (the intake-screener products are a paid revenue line).</p>
+<h2>A. Direct equivalents — clean 1:1 redirects (10)</h2>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>Old path</th>
+<th>→ New path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/theraplayla</td>
+<td>/about</td>
+</tr>
+<tr>
+<td>/meet-the-team</td>
+<td>/team</td>
+</tr>
+<tr>
+<td>/explore-our-space</td>
+<td>/our-space</td>
+</tr>
+<tr>
+<td>/what-we-do-new-page</td>
+<td>/services</td>
+</tr>
+<tr>
+<td>/pediatric-occupational-therapy</td>
+<td>/services/occupational-therapy</td>
+</tr>
+<tr>
+<td>/pediatric-speech-therapy</td>
+<td>/services/speech-therapy</td>
+</tr>
+<tr>
+<td>/orofacial-myofunctional-therapy</td>
+<td>/services/myofunctional-therapy</td>
+</tr>
+<tr>
+<td>/pediatric-feeding-and-swallowing</td>
+<td>/services/feeding-therapy</td>
+</tr>
+<tr>
+<td>/intensives</td>
+<td>/services/intensives</td>
+</tr>
+<tr>
+<td>/contact</td>
+<td>/contact (already resolves)</td>
+</tr>
+</tbody>
+</table></div>
+<h2>B. Near-equivalents — closest topical page (dedicated content lost)</h2>
+<div class="tblwrap"><table>
+<thead>
+<tr>
+<th>Old path</th>
+<th>→ Suggested</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/primitive-reflex-integration</td>
+<td>/services/occupational-therapy</td>
+<td>real service page today; consider rebuilding — supports the reflex blog cluster</td>
+</tr>
+<tr>
+<td>/dynamic-movement-intervention</td>
+<td>/services/occupational-therapy</td>
+<td>DMI page lost</td>
+</tr>
+<tr>
+<td>/twice-exceptional-2e-support</td>
+<td>/services/occupational-therapy</td>
+<td>2E page lost</td>
+</tr>
+<tr>
+<td>/discovery-call</td>
+<td>/contact</td>
+<td>live page embeds Google Calendar scheduler — re-embed it on /contact</td>
+</tr>
+<tr>
+<td>/common-questions</td>
+<td>/services</td>
+<td>FAQ page lost (service pages have FAQ sections)</td>
+</tr>
+<tr>
+<td>/testimonials</td>
+<td>/</td>
+<td>real testimonials needed on new site first</td>
+</tr>
+<tr>
+<td>/nutrition-consulting</td>
+<td>/services/feeding-therapy</td>
+<td></td>
+</tr>
+<tr>
+<td>/teletherapy</td>
+<td>/services</td>
+<td></td>
+</tr>
+<tr>
+<td>/school-of-sleep, /school-of-sleep-contd</td>
+<td>/services</td>
+<td>sleep program pages lost</td>
+</tr>
+<tr>
+<td>/in-school-therapy-services</td>
+<td>/services</td>
+<td></td>
+</tr>
+<tr>
+<td>/regional-center-services</td>
+<td>/about</td>
+<td>footer mentions Regional Center vendor</td>
+</tr>
+<tr>
+<td>/in-the-press</td>
+<td>/about</td>
+<td>press section exists on /about</td>
+</tr>
+<tr>
+<td>/press-inquiries</td>
+<td>/contact</td>
+<td></td>
+</tr>
+<tr>
+<td>/join-our-mailing-list</td>
+<td>/contact</td>
+<td>lead magnet lost</td>
+</tr>
+<tr>
+<td>/professional-development, /ruth-ragland-symposium-2025</td>
+<td>/contact</td>
+<td>event landing pages</td>
+</tr>
+</tbody>
+</table></div>
+<h2>C. Blog (35 URLs) — <strong>content-loss decision required</strong></h2>
+<p>Preferred: rebuild <code>/blog</code> and migrate posts 1:1, then redirect <code>/theraplay-blog/&lt;slug&gt;</code> → <code>/blog/&lt;slug&gt;</code>.
+Fallback (accepts traffic loss): topical redirects — reflex-series posts → /services/occupational-therapy; feeding/chewing/picky-eating posts → /services/feeding-therapy; snoring/tonsils/sleep posts → /services/myofunctional-therapy; remainder + <code>/theraplay-blog</code>, category &amp; tag pages → /.</p>
+<h2>D. Shop (28 URLs) — <strong>business decision required</strong></h2>
+<p>9 shop-list pages (/shop, /shop-ot-approved-toys, /shop-our-favorite-books, /shop-feeding-and-oral-development, /shop-oral-hygiene, /shop-travel, /shop-handwriting, /shop-executive-functioning, /shop-water-play), 13 curated product pages (/nasal-hygiene, /sensory-integration, /bilateral-coordination, /visual-schedules, /back-to-school, /k-beauty, /infant-development, /hand-eye-coordination, /classroom-optimization, /adaptive-seating, /outdoor-sensory-play, /books-for-language-learning, /nutritious-alternatives), and <strong>/shop-intake-screeners + 5 paid product pages (revenue line!)</strong> → interim: all → / ; intake screeners → /contact until a replacement purchase flow exists.</p>
+<h2>Starter vercel.json (group A + B; extend per C/D decisions)</h2>
+<pre><code class="language-json">{
+  &quot;redirects&quot;: [
+    { &quot;source&quot;: &quot;/theraplayla&quot;, &quot;destination&quot;: &quot;/about&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/meet-the-team&quot;, &quot;destination&quot;: &quot;/team&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/explore-our-space&quot;, &quot;destination&quot;: &quot;/our-space&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/what-we-do-new-page&quot;, &quot;destination&quot;: &quot;/services&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/pediatric-occupational-therapy&quot;, &quot;destination&quot;: &quot;/services/occupational-therapy&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/pediatric-speech-therapy&quot;, &quot;destination&quot;: &quot;/services/speech-therapy&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/orofacial-myofunctional-therapy&quot;, &quot;destination&quot;: &quot;/services/myofunctional-therapy&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/pediatric-feeding-and-swallowing&quot;, &quot;destination&quot;: &quot;/services/feeding-therapy&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/intensives&quot;, &quot;destination&quot;: &quot;/services/intensives&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/primitive-reflex-integration&quot;, &quot;destination&quot;: &quot;/services/occupational-therapy&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/dynamic-movement-intervention&quot;, &quot;destination&quot;: &quot;/services/occupational-therapy&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/twice-exceptional-2e-support&quot;, &quot;destination&quot;: &quot;/services/occupational-therapy&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/discovery-call&quot;, &quot;destination&quot;: &quot;/contact&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/common-questions&quot;, &quot;destination&quot;: &quot;/services&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/testimonials&quot;, &quot;destination&quot;: &quot;/&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/nutrition-consulting&quot;, &quot;destination&quot;: &quot;/services/feeding-therapy&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/teletherapy&quot;, &quot;destination&quot;: &quot;/services&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/school-of-sleep&quot;, &quot;destination&quot;: &quot;/services&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/school-of-sleep-contd&quot;, &quot;destination&quot;: &quot;/services&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/in-school-therapy-services&quot;, &quot;destination&quot;: &quot;/services&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/regional-center-services&quot;, &quot;destination&quot;: &quot;/about&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/in-the-press&quot;, &quot;destination&quot;: &quot;/about&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/press-inquiries&quot;, &quot;destination&quot;: &quot;/contact&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/join-our-mailing-list&quot;, &quot;destination&quot;: &quot;/contact&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/professional-development&quot;, &quot;destination&quot;: &quot;/contact&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/ruth-ragland-symposium-2025&quot;, &quot;destination&quot;: &quot;/contact&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/theraplay-blog/:path*&quot;, &quot;destination&quot;: &quot;/&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/shop-intake-screeners/:path*&quot;, &quot;destination&quot;: &quot;/contact&quot;, &quot;permanent&quot;: true },
+    { &quot;source&quot;: &quot;/shop:path(-.*)?&quot;, &quot;destination&quot;: &quot;/&quot;, &quot;permanent&quot;: true }
+  ]
+}
+</code></pre>
+<p><em>Note: the blanket <code>/theraplay-blog/:path*</code> → <code>/</code> rule is the accept-the-loss fallback — replace with per-post redirects if/when the blog is migrated. Remaining curated shop paths (e.g. /nasal-hygiene, /k-beauty) need individual rules; full 90-URL list in <code>live-urls.txt</code>.</em></p>
+<footer>Source files (this folder): <a href="qa-results-theraplay-la-mockup-2026-08-07.md">full results (md)</a> · <a href="redirect-map.md">redirect map (md)</a> · <a href="live-urls.txt">live URL inventory</a></footer>
+</main>
+</body>
+</html>
